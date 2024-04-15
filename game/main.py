@@ -34,27 +34,34 @@ async def main():
 
 def drawGrid():
     global screen
-    rect_x = 0
-    rect_y = 0
-    size = 200
+    rect_x = 450
+    rect_y = 150
+    size = 100
 
     class Cell:
         def __init__(self, x, y):
             self.x = x
             self.y = y
+ 
+    rect = pygame.Rect(450, 150, 400, 400)
+    pygame.draw.rect(screen, (0,0,0), rect, 2)
 
-    for i in range(3):
+
+    for i in range(1, 4):
         cells = []
         rect_y = i * size
-        
-        for j in range(3):
+
+        for j in range(1, 4):
+            
             rect_x = j * size
-            cell = Cell(rect_x, rect_y)
-            cells.append(cell)
             rect = pygame.Rect(rect_x, rect_y, size, size)
             pygame.draw.rect(screen, (0,0,0), rect, 2)
-        j = 0
-        print(cells[0].x, cells[0].y)
+            cell = Cell(rect_x, rect_y)
+            cells.append(cell)
+
+    
+    for i in range(len(cells)):
+        print(cells[i].x, cells[i].y)
         
         
             
@@ -80,6 +87,7 @@ def drawGrid():
 
     #pygame.draw.rect(screen, (0,0,0), rect_4, 2)
     #pygame.draw.rect(screen, (0,0,0), rect_5, 2)
+
     #pygame.draw.rect(screen, (0,0,0), rect_6, 2)
 
     #pygame.draw.rect(screen, (0,0,0), rect_7, 2)
