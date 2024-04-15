@@ -13,6 +13,7 @@ running = True
 async def main():
     global screen, clock, running
     
+    
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -37,14 +38,24 @@ def drawGrid():
     rect_y = 0
     size = 200
 
+    class Cell:
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+
     for i in range(3):
+        cells = []
         rect_y = i * size
         
         for j in range(3):
             rect_x = j * size
+            cell = Cell(rect_x, rect_y)
+            cells.append(cell)
             rect = pygame.Rect(rect_x, rect_y, size, size)
             pygame.draw.rect(screen, (0,0,0), rect, 2)
         j = 0
+        print(cells[0].x, cells[0].y)
+        
         
             
     
