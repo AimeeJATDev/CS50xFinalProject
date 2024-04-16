@@ -13,7 +13,6 @@ running = True
 async def main():
     global screen, clock, running
     
-    
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -34,36 +33,40 @@ async def main():
 
 def drawGrid():
     global screen
-    rect_x = 450
+    rect_x = 400
     rect_y = 150
-    size = 150
+    rect_size = 150
+    circle_size = 60
 
     class Cell:
-        def __init__(self, x, y):
+        def __init__(self, x, y, center):
             self.x = x
             self.y = y
+            self.center = center
 
     for i in range(3):
         cells = []
     
         for j in range(3):
             # Creates a Rect object
-            rect = pygame.Rect(rect_x, rect_y, size, size)
+            rect = pygame.Rect(rect_x, rect_y, rect_size, rect_size)
             # Draws the rect object on the screen
             pygame.draw.rect(screen, (0,0,0), rect, 2)
+            # Draws a circle in the center of rect
+            pygame.draw.circle(screen, (0,0,0), rect.center, circle_size)
 
-            # Creates a Cell object
-            cell = Cell(rect_x, rect_y)
+            # Creates a Cell object and saves coordinates of x, y and center
+            cell = Cell(rect_x, rect_y, rect.center)
             # Adds cell to cells list
             cells.append(cell)
 
             # Increments x value by size variable
-            rect_x = (rect_x + size)
+            rect_x = (rect_x + rect_size)
         
         #Resets x value
-        rect_x = rect_x - (size * 3)
+        rect_x = rect_x - (rect_size * 3)
         # Increments y value by size variable
-        rect_y = rect_y + size
+        rect_y = rect_y + rect_size
 
     # Updates display
     pygame.display.update()
