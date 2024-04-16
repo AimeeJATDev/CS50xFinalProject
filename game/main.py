@@ -36,64 +36,36 @@ def drawGrid():
     global screen
     rect_x = 450
     rect_y = 150
-    size = 100
+    size = 150
 
     class Cell:
         def __init__(self, x, y):
             self.x = x
             self.y = y
- 
-    rect = pygame.Rect(450, 150, 400, 400)
-    pygame.draw.rect(screen, (0,0,0), rect, 2)
 
-
-    for i in range(1, 4):
+    for i in range(3):
         cells = []
-        rect_y = i * size
-
-        for j in range(1, 4):
-            
-            rect_x = j * size
+    
+        for j in range(3):
+            # Creates a Rect object
             rect = pygame.Rect(rect_x, rect_y, size, size)
+            # Draws the rect object on the screen
             pygame.draw.rect(screen, (0,0,0), rect, 2)
+
+            # Creates a Cell object
             cell = Cell(rect_x, rect_y)
+            # Adds cell to cells list
             cells.append(cell)
 
-    
-    for i in range(len(cells)):
-        print(cells[i].x, cells[i].y)
+            # Increments x value by size variable
+            rect_x = (rect_x + size)
         
-        
-            
-    
-    # First iteration of grid
+        #Resets x value
+        rect_x = rect_x - (size * 3)
+        # Increments y value by size variable
+        rect_y = rect_y + size
 
-    #rect_1 = pygame.Rect(0, 0, 100, 100)
-    #rect_2 = pygame.Rect(100, 0 , 100, 100)
-    #rect_3 = pygame.Rect(200, 0, 100, 100)
-
-    #rect_4 = pygame.Rect(0, 100, 100, 100)
-    #rect_5 = pygame.Rect(100, 100 , 100, 100)
-    #rect_6 = pygame.Rect(200, 100, 100, 100)
-
-    #rect_7 = pygame.Rect(0, 200, 100, 100)
-    #rect_8 = pygame.Rect(100, 200 , 100, 100)
-    #rect_9 = pygame.Rect(200, 200, 100, 100)
-
-    
-    #pygame.draw.rect(screen, (0,0,0), rect_1, 2)
-    #pygame.draw.rect(screen, (0,0,0), rect_2, 2)
-    #pygame.draw.rect(screen, (0,0,0), rect_3, 2)
-
-    #pygame.draw.rect(screen, (0,0,0), rect_4, 2)
-    #pygame.draw.rect(screen, (0,0,0), rect_5, 2)
-
-    #pygame.draw.rect(screen, (0,0,0), rect_6, 2)
-
-    #pygame.draw.rect(screen, (0,0,0), rect_7, 2)
-    #pygame.draw.rect(screen, (0,0,0), rect_8, 2)
-    #pygame.draw.rect(screen, (0,0,0), rect_9, 2)
-
+    # Updates display
     pygame.display.update()
 
 # Always be at bottom of file
