@@ -1,9 +1,10 @@
+import os
 import pygame
 import asyncio
 
 #PyGame initialisation
 pygame.init()
-SCREEN_WIDTH = 1280
+SCREEN_WIDTH = 1700
 SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Whack-a-Duck")
@@ -21,7 +22,8 @@ async def main():
         screen.fill("White")
 
         # GAME CODE HERE
-        drawGrid()
+
+        titleScreen()
 
         pygame.display.flip()
         clock.tick(60)
@@ -29,6 +31,24 @@ async def main():
         await asyncio.sleep(0)
 
     pygame.quit()
+
+def titleScreen():
+    global screen
+
+    startImgPath = "game/images/test.jpg"
+    instructionImgPath = "game/images/..."
+    exitImgPath = "game/images/..."
+    
+    startImg = pygame.image.load(os.path.join(startImgPath))
+    instructionImg = pygame.image.load(os.path.join(instructionImgPath))
+    exitImg= pygame.image.load(os.path.join(exitImgPath))
+
+    screen.blit(startImg, (0,0))
+    screen.blit(instructionImg, (0,0))
+    screen.blit(exitImg, (0,0))
+
+    
+    #drawGrid()
 
 
 def drawGrid():
@@ -67,6 +87,9 @@ def drawGrid():
         rect_x = rect_x - (rect_size * 3)
         # Increments y value by size variable
         rect_y = rect_y + rect_size
+    
+    for i in range(len(cells)):
+        print(cells[i].x, cells[i].y)
 
     # Updates display
     pygame.display.update()
