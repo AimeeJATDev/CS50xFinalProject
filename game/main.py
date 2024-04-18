@@ -1,3 +1,5 @@
+# Game Colour Palette: https://colorhunt.co/palette/11009e4942e4e6b9defae7f3
+
 import os
 import pygame
 import asyncio
@@ -19,7 +21,7 @@ async def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        screen.fill("White")
+        screen.fill("white")
 
         # GAME CODE HERE
 
@@ -35,17 +37,25 @@ async def main():
 def titleScreen():
     global screen
 
-    startImgPath = "game/images/test.jpg"
-    instructionImgPath = "game/images/..."
-    exitImgPath = "game/images/..."
+    screen.fill("#11009E")
+
+    # TODO: Remove game/ from path before packaging with pygame
+    startImgPath = "game/images/start_btn.jpg"
+    instructionImgPath = "game/images/instructions_btn.jpg"
+    exitImgPath = "game/images/exit_btn.jpg"
     
     startImg = pygame.image.load(os.path.join(startImgPath))
+    startImgH = startImg.get_height()
+    startImgW = startImg.get_width()
     instructionImg = pygame.image.load(os.path.join(instructionImgPath))
     exitImg= pygame.image.load(os.path.join(exitImgPath))
 
-    screen.blit(startImg, (0,0))
-    screen.blit(instructionImg, (0,0))
-    screen.blit(exitImg, (0,0))
+    centerX = (SCREEN_WIDTH / 2) - (startImgW / 2)
+    centerY = (SCREEN_HEIGHT / 2) - (startImgH / 2)
+
+    screen.blit(startImg, (centerX, 100))
+    screen.blit(instructionImg, (centerX, 300))
+    screen.blit(exitImg, (centerX, 500))
 
     
     #drawGrid()
