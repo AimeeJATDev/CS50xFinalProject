@@ -40,9 +40,9 @@ def titleScreen():
     screen.fill("#11009E")
 
     # TODO: Remove game/ from path before packaging with pygame
-    startImgPath = "game/images/start_btn.jpg"
-    instructionImgPath = "game/images/instructions_btn.jpg"
-    exitImgPath = "game/images/exit_btn.jpg"
+    startImgPath = "game/images/start_btn.png"
+    instructionImgPath = "game/images/instructions_btn.png"
+    exitImgPath = "game/images/exit_btn.png"
     
     startImg = pygame.image.load(os.path.join(startImgPath))
     startImgH = startImg.get_height()
