@@ -27,6 +27,11 @@ async def main():
 
         titleScreen()
 
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                drawGrid()
+
+
         pygame.display.flip()
         clock.tick(60)
 
@@ -51,11 +56,15 @@ def titleScreen():
     exitImg= pygame.image.load(os.path.join(exitImgPath))
 
     centerX = (SCREEN_WIDTH / 2) - (startImgW / 2)
-    centerY = (SCREEN_HEIGHT / 2) - (startImgH / 2)
+    #centerY = (SCREEN_HEIGHT / 2) - (startImgH / 2)
 
     screen.blit(startImg, (centerX, 100))
     screen.blit(instructionImg, (centerX, 300))
     screen.blit(exitImg, (centerX, 500))
+
+    # TODO: https://www.geeksforgeeks.org/mmouse-clicks-on-sprites-in-pygame/
+
+    
 
     
     #drawGrid()
