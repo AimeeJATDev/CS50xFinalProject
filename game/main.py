@@ -4,6 +4,8 @@ import os
 import pygame
 import asyncio
 
+from pygame.sprite import _Group
+
 #PyGame initialisation
 pygame.init()
 SCREEN_WIDTH = 1700
@@ -26,11 +28,6 @@ async def main():
         # GAME CODE HERE
 
         titleScreen()
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                drawGrid()
-
 
         pygame.display.flip()
         clock.tick(60)
@@ -63,6 +60,15 @@ def titleScreen():
     screen.blit(exitImg, (centerX, 500))
 
     # TODO: https://www.geeksforgeeks.org/mmouse-clicks-on-sprites-in-pygame/
+
+    class btnSprite(pygame.sprite.Sprite):
+        def __init__(self, img, width, height):
+            pygame.sprite.Sprite.__init__(self)
+            self.image = pygame.surface([width, height])
+            self.image.fill(img)
+            self.rect = self.image.get_rect()
+
+
 
     
 
