@@ -4,8 +4,6 @@ import os
 import pygame
 import asyncio
 
-from pygame.sprite import _Group
-
 #PyGame initialisation
 pygame.init()
 SCREEN_WIDTH = 1700
@@ -45,28 +43,30 @@ def titleScreen():
     startImgPath = "game/images/start_btn.png"
     instructionImgPath = "game/images/instructions_btn.png"
     exitImgPath = "game/images/exit_btn.png"
-    
-    startImg = pygame.image.load(os.path.join(startImgPath))
-    startImgH = startImg.get_height()
-    startImgW = startImg.get_width()
-    instructionImg = pygame.image.load(os.path.join(instructionImgPath))
-    exitImg= pygame.image.load(os.path.join(exitImgPath))
 
-    centerX = (SCREEN_WIDTH / 2) - (startImgW / 2)
+    class btnSprite(pygame.sprite.Sprite):
+        def __init__(self, color, width, height):
+            pygame.sprite.Sprite.__init__(self)
+            self.image = pygame.Surface([width, height])
+            self.image = pygame.image.load(os.path.join(color))
+            self.rect = self.image.get_rect()
+    
+    startImg = btnSprite(startImgPath, 100, 100)
+    #startImgH = startImg.get_height()
+    #startImgW = startImg.get_width()
+    instructionImg = btnSprite(instructionImgPath, 100, 300)
+    exitImg = btnSprite(exitImgPath, 100, 500)
+
+    #centerX = (SCREEN_WIDTH / 2) - (startImgW / 2)
     #centerY = (SCREEN_HEIGHT / 2) - (startImgH / 2)
 
-    screen.blit(startImg, (centerX, 100))
-    screen.blit(instructionImg, (centerX, 300))
-    screen.blit(exitImg, (centerX, 500))
+    screen.blit(startImg.image, startImg.rect)
+    screen.blit(instructionImg.image, instructionImg.rect)
+    screen.blit(exitImg.image, exitImg.rect)
 
     # TODO: https://www.geeksforgeeks.org/mmouse-clicks-on-sprites-in-pygame/
 
-    class btnSprite(pygame.sprite.Sprite):
-        def __init__(self, img, width, height):
-            pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.surface([width, height])
-            self.image.fill(img)
-            self.rect = self.image.get_rect()
+
 
 
 
