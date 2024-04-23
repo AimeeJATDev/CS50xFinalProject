@@ -45,24 +45,21 @@ def titleScreen():
     exitImgPath = "game/images/exit_btn.png"
 
     class btnSprite(pygame.sprite.Sprite):
-        def __init__(self, color, width, height):
+        def __init__(self, img):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.Surface([width, height])
-            self.image = pygame.image.load(os.path.join(color))
+            self.image = pygame.image.load(os.path.join(img))
             self.rect = self.image.get_rect()
     
-    startImg = btnSprite(startImgPath, 100, 100)
-    #startImgH = startImg.get_height()
-    #startImgW = startImg.get_width()
-    instructionImg = btnSprite(instructionImgPath, 100, 300)
-    exitImg = btnSprite(exitImgPath, 100, 500)
+    startImg = btnSprite(startImgPath)
+    instructionImg = btnSprite(instructionImgPath)
+    exitImg = btnSprite(exitImgPath)
 
-    #centerX = (SCREEN_WIDTH / 2) - (startImgW / 2)
-    #centerY = (SCREEN_HEIGHT / 2) - (startImgH / 2)
+    centerX = (SCREEN_WIDTH / 2) - (startImg.image.get_width() / 2)
+    centerY = (SCREEN_HEIGHT / 2) - (startImg.image.get_height() / 2)
 
-    screen.blit(startImg.image, startImg.rect)
-    screen.blit(instructionImg.image, instructionImg.rect)
-    screen.blit(exitImg.image, exitImg.rect)
+    screen.blit(startImg.image, [centerX, 100])
+    screen.blit(instructionImg.image, [centerX, 300])
+    screen.blit(exitImg.image, [centerX, 500])
 
     # TODO: https://www.geeksforgeeks.org/mmouse-clicks-on-sprites-in-pygame/
 
