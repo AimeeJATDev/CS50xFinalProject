@@ -12,6 +12,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
 running = True
+gameState = "start_menu"
 
 async def main():
     global screen, clock, running
@@ -20,13 +21,18 @@ async def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                print("click")
 
-        screen.fill("white")
 
         # GAME CODE HERE
 
-        titleScreen()
-
+        if gameState == "start_menu":
+            titleScreen()
+        elif gameState == "game":
+            print("game")
+    
         pygame.display.flip()
         clock.tick(60)
 
@@ -34,12 +40,19 @@ async def main():
 
     pygame.quit()
 
+#def mouse():
+    #pos = pygame.mouse.get_pos()
+    #for event in pygame.event.get():
+        #if event.type == pygame.MOUSEBUTTONDOWN:
+            #pos = pygame.mouse.get_pos()
+    #return pos
+
 def titleScreen():
-    global screen
+    global screen, gameState
 
     screen.fill("#11009E")
 
-    # TODO: Remove game/ from path before packaging with pygame
+    # TODO: Remove game/ from path before packaging with pygbag
     startImgPath = "game/images/start_btn.png"
     instructionImgPath = "game/images/instructions_btn.png"
     exitImgPath = "game/images/exit_btn.png"
@@ -63,14 +76,15 @@ def titleScreen():
 
     # TODO: https://www.geeksforgeeks.org/mmouse-clicks-on-sprites-in-pygame/
 
+    #if startImg.rect.collidepoint():
+        #drawGrid()
+    #elif instructionImg.rect.collidepoint():
+        #print("Instructions")
+    #elif exitImg.rect.collidepoint():
+        #pygame.quit()
 
-
-
-
-    
-
-    
-    #drawGrid()
+    gameState = "game"    
+    pygame.display.flip()
 
 
 def drawGrid():
