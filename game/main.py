@@ -1,6 +1,7 @@
 # Game Colour Palette: https://colorhunt.co/palette/11009e4942e4e6b9defae7f3
 
 import os
+import sys
 import pygame
 import asyncio
 
@@ -32,6 +33,9 @@ async def main():
             instructionScreen()
         elif gameState == "game":
             drawGrid()
+        elif gameState == "exit":
+            pygame.quit()
+            sys.exit()
     
         pygame.display.flip()
         clock.tick(60)
@@ -89,13 +93,14 @@ def titleScreen(mousePos):
         elif instructionImg.rect.collidepoint(mousePos):
             gameState = "instructions"
         elif exitImg.rect.collidepoint(mousePos):
-            pygame.quit()
+            gameState = "exit"
 
     # Update screen
     pygame.display.update()
 
 def instructionScreen():
     pygame.quit()
+    sys.exit()
 
 
 def drawGrid():
@@ -139,6 +144,8 @@ def drawGrid():
     
     #for i in range(len(cells)):
         #print(cells[i].x, cells[i].y)
+
+    print(len(cells))
 
     # Updates display
     pygame.display.update()
