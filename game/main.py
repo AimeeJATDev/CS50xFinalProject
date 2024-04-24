@@ -13,25 +13,24 @@ pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
 running = True
 gameState = "start_menu"
+mousePos = 0
 
 async def main():
-    global screen, clock, running
+    global screen, clock, running, mousePos
     
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                pos = pygame.mouse.get_pos()
-                print("click")
+                mousePos = pygame.mouse.get_pos()
 
 
         # GAME CODE HERE
-
         if gameState == "start_menu":
-            titleScreen()
+            titleScreen(mousePos)
         elif gameState == "game":
-            print("game")
+            drawGrid()
     
         pygame.display.flip()
         clock.tick(60)
@@ -40,14 +39,8 @@ async def main():
 
     pygame.quit()
 
-#def mouse():
-    #pos = pygame.mouse.get_pos()
-    #for event in pygame.event.get():
-        #if event.type == pygame.MOUSEBUTTONDOWN:
-            #pos = pygame.mouse.get_pos()
-    #return pos
 
-def titleScreen():
+def titleScreen(mousePos):
     global screen, gameState
 
     screen.fill("#11009E")
@@ -69,21 +62,30 @@ def titleScreen():
 
     centerX = (SCREEN_WIDTH / 2) - (startImg.image.get_width() / 2)
     centerY = (SCREEN_HEIGHT / 2) - (startImg.image.get_height() / 2)
+    
+    startImg.rect.x = centerX
+    instructionImg.rect.x = centerX
+    exitImg.rect.x = centerX
+    startImg.rect.y = 100
+    instructionImg.rect.y = 300
+    exitImg.rect.y = 500
 
-    screen.blit(startImg.image, [centerX, 100])
-    screen.blit(instructionImg.image, [centerX, 300])
-    screen.blit(exitImg.image, [centerX, 500])
+
+    screen.blit(startImg.image, [startImg.rect.x, startImg.rect.y])
+    screen.blit(instructionImg.image, [instructionImg.rect.x, instructionImg.rect.y])
+    screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
 
     # TODO: https://www.geeksforgeeks.org/mmouse-clicks-on-sprites-in-pygame/
 
-    #if startImg.rect.collidepoint():
-        #drawGrid()
-    #elif instructionImg.rect.collidepoint():
-        #print("Instructions")
-    #elif exitImg.rect.collidepoint():
-        #pygame.quit()
+    if mousePos != 0:
+        if startImg.rect.collidepoint(mousePos):
+            gameState = "game"
+        elif instructionImg.rect.collidepoint(mousePos):
+            gameState = "instructions"
+        elif exitImg.rect.collidepoint(mousePos):
+            pygame.quit()
 
-    gameState = "game"    
+
     pygame.display.flip()
 
 
@@ -93,6 +95,8 @@ def drawGrid():
     rect_y = 150
     rect_size = 150
     circle_size = 60
+
+    screen.fill("white")
 
     class Cell:
         def __init__(self, x, y, center):
@@ -124,8 +128,8 @@ def drawGrid():
         # Increments y value by size variable
         rect_y = rect_y + rect_size
     
-    for i in range(len(cells)):
-        print(cells[i].x, cells[i].y)
+    #for i in range(len(cells)):
+        #print(cells[i].x, cells[i].y)
 
     # Updates display
     pygame.display.update()
