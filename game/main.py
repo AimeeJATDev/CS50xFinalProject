@@ -25,10 +25,11 @@ async def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
 
-
         # GAME CODE HERE
         if gameState == "start_menu":
             titleScreen(mousePos)
+        elif gameState == "instructions":
+            instructionScreen()
         elif gameState == "game":
             drawGrid()
     
@@ -43,26 +44,32 @@ async def main():
 def titleScreen(mousePos):
     global screen, gameState
 
+    # Fills screen with colour
     screen.fill("#11009E")
 
     # TODO: Remove game/ from path before packaging with pygbag
+    # Image paths
     startImgPath = "game/images/start_btn.png"
     instructionImgPath = "game/images/instructions_btn.png"
     exitImgPath = "game/images/exit_btn.png"
 
+    # Create btnSprite class
     class btnSprite(pygame.sprite.Sprite):
         def __init__(self, img):
             pygame.sprite.Sprite.__init__(self)
             self.image = pygame.image.load(os.path.join(img))
             self.rect = self.image.get_rect()
     
+    # Create buttons using btnSprite class
     startImg = btnSprite(startImgPath)
     instructionImg = btnSprite(instructionImgPath)
     exitImg = btnSprite(exitImgPath)
 
+    # Calculate the x value needed to place button in middle of screen
     centerX = (SCREEN_WIDTH / 2) - (startImg.image.get_width() / 2)
-    centerY = (SCREEN_HEIGHT / 2) - (startImg.image.get_height() / 2)
+    #centerY = (SCREEN_HEIGHT / 2) - (startImg.image.get_height() / 2)
     
+    # Set rect x and y values
     startImg.rect.x = centerX
     instructionImg.rect.x = centerX
     exitImg.rect.x = centerX
@@ -70,13 +77,12 @@ def titleScreen(mousePos):
     instructionImg.rect.y = 300
     exitImg.rect.y = 500
 
-
+    # Add buttons to screen
     screen.blit(startImg.image, [startImg.rect.x, startImg.rect.y])
     screen.blit(instructionImg.image, [instructionImg.rect.x, instructionImg.rect.y])
     screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
 
-    # TODO: https://www.geeksforgeeks.org/mmouse-clicks-on-sprites-in-pygame/
-
+    # If mousePos variable doesn't equal 0, check for collisions
     if mousePos != 0:
         if startImg.rect.collidepoint(mousePos):
             gameState = "game"
@@ -85,8 +91,11 @@ def titleScreen(mousePos):
         elif exitImg.rect.collidepoint(mousePos):
             pygame.quit()
 
+    # Update screen
+    pygame.display.update()
 
-    pygame.display.flip()
+def instructionScreen():
+    pygame.quit()
 
 
 def drawGrid():
