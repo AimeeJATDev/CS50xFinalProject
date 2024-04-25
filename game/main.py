@@ -112,15 +112,15 @@ def drawGrid():
 
     screen.fill("white")
 
-    class Cell:
-        def __init__(self, x, y, center):
-            self.x = x
-            self.y = y
-            self.center = center
-
+    #class Cell:
+        #def __init__(self, x, y, center):
+            #self.x = x
+            #self.y = y
+            #self.center = center
+            
+    cells = []
     for i in range(3):
-        cells = []
-    
+         
         for j in range(3):
             # Creates a Rect object
             rect = pygame.Rect(rect_x, rect_y, rect_size, rect_size)
@@ -128,11 +128,10 @@ def drawGrid():
             pygame.draw.rect(screen, (0,0,0), rect, 2)
             # Draws a circle in the center of rect
             pygame.draw.circle(screen, (0,0,0), rect.center, circle_size)
-
             # Creates a Cell object and saves coordinates of x, y and center
-            cell = Cell(rect_x, rect_y, rect.center)
+            #cell = Cell(rect_x, rect_y, rect.center)
             # Adds cell to cells list
-            cells.append(cell)
+            cells.append(rect)
 
             # Increments x value by size variable
             rect_x = (rect_x + rect_size)
@@ -143,10 +142,10 @@ def drawGrid():
         rect_y = rect_y + rect_size
 
     
-    #for i in range(len(cells)):
-        #print(cells[i].x, cells[i].y)
+    for i in range(len(cells)):
+        print(cells[i])
 
-    #print(len(cells))
+    print(len(cells))
 
     # Updates display
     pygame.display.update()
