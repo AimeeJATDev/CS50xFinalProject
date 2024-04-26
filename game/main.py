@@ -7,6 +7,7 @@ import asyncio
 
 #PyGame initialisation
 pygame.init()
+pygame.font.init()
 
 # Variable Declaration
 SCREEN_WIDTH = 1700
@@ -14,6 +15,7 @@ SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 caption = pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
+font = pygame.font.SysFont("Calibri", 40)
 running = True
 gameState = "start_menu"
 mousePos = 0
@@ -110,11 +112,12 @@ def instructionScreen():
 
 
 def drawGrid():
-    global screen, gameState, score
+    global screen, gameState, font, score
     rect_size = 150
     circle_size = 60
     rect_x = (SCREEN_WIDTH / 2) - ((rect_size * 3) / 2)
     rect_y = (SCREEN_HEIGHT / 2) - ((rect_size * 3) / 2)
+    scoreText = font.render("Score: " + str(score), False, (0,0,0))
 
     screen.fill("white")
             
@@ -139,6 +142,8 @@ def drawGrid():
         rect_x = rect_x - (rect_size * 3)
         # Increments y value by size variable
         rect_y = rect_y + rect_size
+
+    screen.blit(scoreText, [rect_x, 50])
 
     gameState = "game"
 
