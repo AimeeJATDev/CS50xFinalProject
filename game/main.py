@@ -7,14 +7,19 @@ import asyncio
 
 #PyGame initialisation
 pygame.init()
+
+# Variable Declaration
 SCREEN_WIDTH = 1700
 SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Whack-a-Duck")
+caption = pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
 running = True
 gameState = "start_menu"
 mousePos = 0
+cells = []
+circles = []
+score = 0
 
 async def main():
     global screen, clock, running, mousePos
@@ -26,13 +31,14 @@ async def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
 
-        # GAME CODE HERE
         if gameState == "start_menu":
             titleScreen(mousePos)
         elif gameState == "instructions":
             instructionScreen()
-        elif gameState == "game":
+        elif gameState == "setup":
             drawGrid()
+        elif gameState == "game":
+            gameLogic(mousePos)
         elif gameState == "exit":
             pygame.quit()
             sys.exit()
@@ -88,7 +94,7 @@ def titleScreen(mousePos):
     # If mousePos variable doesn't equal 0, check for collisions
     if mousePos != 0:
         if startImg.rect.collidepoint(mousePos):
-            gameState = "game"
+            gameState = "setup"
         elif instructionImg.rect.collidepoint(mousePos):
             gameState = "instructions"
         elif exitImg.rect.collidepoint(mousePos):
@@ -97,13 +103,14 @@ def titleScreen(mousePos):
     # Update screen
     pygame.display.update()
 
+
 def instructionScreen():
     pygame.quit()
     sys.exit()
 
 
 def drawGrid():
-    global screen
+    global screen, gameState, score
     rect_size = 150
     circle_size = 60
     rect_x = (SCREEN_WIDTH / 2) - ((rect_size * 3) / 2)
@@ -111,8 +118,6 @@ def drawGrid():
 
     screen.fill("white")
             
-    cells = []
-    circles = []
     for i in range(3):
          
         for j in range(3):
@@ -135,15 +140,17 @@ def drawGrid():
         # Increments y value by size variable
         rect_y = rect_y + rect_size
 
-    
-    #for i in range(len(cells)):
-        #print(cells[i], circles[i])
-
-    #print(len(cells))
+    gameState = "game"
 
     # Updates display
     pygame.display.update()
 
+
+def gameLogic(mousePos):
+    global screen, gameState, cells, circles, score
+
+
+    
 # Always be at bottom of file
 asyncio.run(main())
 
