@@ -71,7 +71,6 @@ def titleScreen(mousePos):
 
     # Calculate the x value needed to place button in middle of screen
     centerX = (SCREEN_WIDTH / 2) - (startImg.image.get_width() / 2)
-    #centerY = (SCREEN_HEIGHT / 2) - (startImg.image.get_height() / 2)
     
     # Set rect x and y values
     startImg.rect.x = centerX
@@ -111,14 +110,9 @@ def drawGrid():
     rect_y = (SCREEN_HEIGHT / 2) - ((rect_size * 3) / 2)
 
     screen.fill("white")
-
-    #class Cell:
-        #def __init__(self, x, y, center):
-            #self.x = x
-            #self.y = y
-            #self.center = center
             
     cells = []
+    circles = []
     for i in range(3):
          
         for j in range(3):
@@ -127,11 +121,11 @@ def drawGrid():
             # Draws the rect object on the screen
             pygame.draw.rect(screen, (0,0,0), rect, 2)
             # Draws a circle in the center of rect
-            pygame.draw.circle(screen, (0,0,0), rect.center, circle_size)
-            # Creates a Cell object and saves coordinates of x, y and center
-            #cell = Cell(rect_x, rect_y, rect.center)
-            # Adds cell to cells list
+            circle = pygame.draw.circle(screen, (0,0,0), rect.center, circle_size)
+            # Adds rect to cells list
             cells.append(rect)
+            # Adds circle to circles list
+            circles.append(circle)
 
             # Increments x value by size variable
             rect_x = (rect_x + rect_size)
@@ -142,10 +136,10 @@ def drawGrid():
         rect_y = rect_y + rect_size
 
     
-    for i in range(len(cells)):
-        print(cells[i])
+    #for i in range(len(cells)):
+        #print(cells[i], circles[i])
 
-    print(len(cells))
+    #print(len(cells))
 
     # Updates display
     pygame.display.update()
