@@ -154,6 +154,20 @@ def drawGrid():
 def gameLogic(mousePos):
     global screen, gameState, cells, circles, score
 
+    class gameSprite(pygame.sprite.Sprite):
+        def __init__(self, img):
+            pygame.sprite.Sprite.__init__(self)
+            self.image = pygame.image.load(os.path.join(img))
+            self.rect = self.image.get_rect()
+
+    emptyCellPath = ""
+    plusDuckPath = ""
+    minusDuckPath = ""
+
+    emptyCell = gameSprite(emptyCellPath)
+    plusDuck = gameSprite(plusDuckPath)
+    minusDuck = gameSprite(minusDuckPath)
+
 
     
 # Always be at bottom of file
