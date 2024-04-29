@@ -152,7 +152,8 @@ def drawGrid():
 
 
 def gameLogic(mousePos):
-    global screen, gameState, cells, circles, score
+    global screen, clock, gameState, cells, circles, score
+    time = 10
 
     class gameSprite(pygame.sprite.Sprite):
         def __init__(self, img):
@@ -160,13 +161,15 @@ def gameLogic(mousePos):
             self.image = pygame.image.load(os.path.join(img))
             self.rect = self.image.get_rect()
 
-    emptyCellPath = ""
-    plusDuckPath = ""
-    minusDuckPath = ""
+    emptyCellPath = "game/images/emptyCell.png"
+    plusDuckPath = "game/images/plusDuck.png"
+    minusDuckPath = "game/images/minusDuck.png"
 
     emptyCell = gameSprite(emptyCellPath)
     plusDuck = gameSprite(plusDuckPath)
     minusDuck = gameSprite(minusDuckPath)
+
+    
 
 
     
