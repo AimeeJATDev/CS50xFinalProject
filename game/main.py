@@ -17,7 +17,7 @@ caption = pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
 font = pygame.font.SysFont("Calibri", 40)
 running = True
-gameState = "start_menu"
+gameState = "start"
 mousePos = 0
 cells = []
 circles = []
@@ -27,9 +27,10 @@ timer = 10
 timerInterval = 1000
 timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
+timerText = font.render("Time: " + str(timer), False, [0,0,0])
 
 async def main():
-    global screen, clock, timer, running, mousePos
+    global screen, clock, timer, running, mousePos, timerText
     
     while running:
         for event in pygame.event.get():
@@ -39,11 +40,11 @@ async def main():
                 mousePos = pygame.mouse.get_pos()
             elif event.type == timerEvent:
                 timer -= 1
-                #text = font.render("Time: " + str(time), False, [0,0,0])
+                timerText = font.render("Time: " + str(timer), False, [0,0,0])
                 if timer == 0:
                     pygame.time.set_timer(timerEvent, 0)
 
-        if gameState == "start_menu":
+        if gameState == "start":
             titleScreen(mousePos)
         elif gameState == "instructions":
             instructionScreen()
@@ -162,7 +163,7 @@ def drawGrid():
 
 
 def gameLogic(mousePos):
-    global screen, clock, timer, gameState, cells, circles, score
+    global screen, timer, gameState, cells, circles, score, timerText
 
     class gameSprite(pygame.sprite.Sprite):
         def __init__(self, img):
@@ -178,9 +179,12 @@ def gameLogic(mousePos):
     plusDuck = gameSprite(plusDuckPath)
     minusDuck = gameSprite(minusDuckPath)
 
-    text = font.render("Time: " + str(timer), False, [0,0,0])
-    screen.blit(text, [0,0])
-
+    # Timer Code
+    textRect = pygame.Rect(0, 0, 150, 50)
+    subScreen = screen.subsurface(textRect)
+    subScreen.fill("white")
+    subScreen.blit(timerText, [0,0])
+    
     pygame.display.update()
     
 
