@@ -23,8 +23,13 @@ cells = []
 circles = []
 score = 0
 
+timer = 10
+timerInterval = 1000
+timerEvent = pygame.USEREVENT + 1
+pygame.time.set_timer(timerEvent, timerInterval)
+
 async def main():
-    global screen, clock, running, mousePos
+    global screen, clock, timer, running, mousePos
     
     while running:
         for event in pygame.event.get():
@@ -32,6 +37,11 @@ async def main():
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
+            elif event.type == timerEvent:
+                timer -= 1
+                #text = font.render("Time: " + str(time), False, [0,0,0])
+                if timer == 0:
+                    pygame.time.set_timer(timerEvent, 0)
 
         if gameState == "start_menu":
             titleScreen(mousePos)
@@ -152,8 +162,7 @@ def drawGrid():
 
 
 def gameLogic(mousePos):
-    global screen, clock, gameState, cells, circles, score
-    time = 10
+    global screen, clock, timer, gameState, cells, circles, score
 
     class gameSprite(pygame.sprite.Sprite):
         def __init__(self, img):
@@ -169,6 +178,10 @@ def gameLogic(mousePos):
     plusDuck = gameSprite(plusDuckPath)
     minusDuck = gameSprite(minusDuckPath)
 
+    text = font.render("Time: " + str(timer), False, [0,0,0])
+    screen.blit(text, [0,0])
+
+    pygame.display.update()
     
 
 
