@@ -139,8 +139,8 @@ def drawGrid():
             rect = pygame.Rect(rect_x, rect_y, rect_size, rect_size)
             # Draws the rect object on the screen
             pygame.draw.rect(screen, (0,0,0), rect, 2)
-            # Draws a circle in the center of rect
-            circle = pygame.draw.circle(screen, (0,0,0), rect.center, circle_size)
+            # Draws a circle in the center of rect, but the circle is the came colour as the background
+            circle = pygame.draw.circle(screen, ("white"), rect.center, circle_size)
             # Adds rect to cells list
             cells.append(rect)
             # Adds circle to circles list
@@ -185,8 +185,13 @@ def gameLogic(mousePos):
     subScreen.fill("white")
     subScreen.blit(timerText, [0, 0])
 
+    # Add empty cell images into cells
+    for i in circles:
+        screen.blit(emptyCell.image, [i.x, i.y])
 
-    
+    #while timer != 0:
+        #print(timer)
+        
     pygame.display.update()
     
 
