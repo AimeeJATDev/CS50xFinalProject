@@ -154,7 +154,7 @@ def drawGrid():
         # Increments y value by size variable
         rect_y = rect_y + rect_size
 
-    screen.blit(scoreText, [rect_x, 50])
+    screen.blit(scoreText, [rect_x, 60])
 
     gameState = "game"
 
@@ -180,10 +180,12 @@ def gameLogic(mousePos):
     minusDuck = gameSprite(minusDuckPath)
 
     # Timer Code
-    textRect = pygame.Rect(0, 0, 150, 50)
+    textRect = pygame.Rect(625, 20, 150, 30)
     subScreen = screen.subsurface(textRect)
     subScreen.fill("white")
-    subScreen.blit(timerText, [0,0])
+    subScreen.blit(timerText, [0, 0])
+
+
     
     pygame.display.update()
     
