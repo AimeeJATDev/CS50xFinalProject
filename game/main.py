@@ -5,7 +5,6 @@ import sys
 import pygame
 import asyncio
 import random
-import time
 
 #PyGame initialisation
 pygame.init()
@@ -25,7 +24,7 @@ cells = []
 circles = []
 score = 0
 
-timer = 10
+timer = 20
 timerInterval = 1000
 timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
@@ -54,12 +53,14 @@ async def main():
             drawGrid()
         elif gameState == "game":
             gameLogic(mousePos)
+        elif gameState == "pause":
+            print("pause")
         elif gameState == "exit":
             pygame.quit()
             sys.exit()
     
         pygame.display.flip()
-        clock.tick(2)
+        clock.tick(30)
 
         await asyncio.sleep(0)
 
@@ -191,22 +192,15 @@ def gameLogic(mousePos):
     for i in circles:
         screen.blit(emptyCell.image, [i.x, i.y])
 
-    #if timer != 0:
-        #cell1 = random.randint(0,8)
-        #cell2 = random.randint(0,8)
-
-        
-    #print(circles[cell1].x, circles[cell1].y)
-
-    if timer > 0:
+    timerRunning = True
+    
+    if timerRunning == True and timer > 0:
         cell1 = random.randint(0,8)
         cell2 = random.randint(0,8)
+            
         screen.blit(plusDuck.image, [circles[cell1].x, circles[cell1].y])
         screen.blit(minusDuck.image, [circles[cell2].x, circles[cell2].y])
-
-    
-
-
+    pygame.time.delay(400)
         
     pygame.display.update()
     
