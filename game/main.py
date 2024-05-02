@@ -4,6 +4,8 @@ import os
 import sys
 import pygame
 import asyncio
+import random
+import time
 
 #PyGame initialisation
 pygame.init()
@@ -57,7 +59,7 @@ async def main():
             sys.exit()
     
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(2)
 
         await asyncio.sleep(0)
 
@@ -189,8 +191,22 @@ def gameLogic(mousePos):
     for i in circles:
         screen.blit(emptyCell.image, [i.x, i.y])
 
-    #while timer != 0:
-        #print(timer)
+    #if timer != 0:
+        #cell1 = random.randint(0,8)
+        #cell2 = random.randint(0,8)
+
+        
+    #print(circles[cell1].x, circles[cell1].y)
+
+    if timer > 0:
+        cell1 = random.randint(0,8)
+        cell2 = random.randint(0,8)
+        screen.blit(plusDuck.image, [circles[cell1].x, circles[cell1].y])
+        screen.blit(minusDuck.image, [circles[cell2].x, circles[cell2].y])
+
+    
+
+
         
     pygame.display.update()
     
