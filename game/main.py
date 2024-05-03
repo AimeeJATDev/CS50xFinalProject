@@ -194,13 +194,24 @@ def gameLogic(mousePos):
 
     timerRunning = True
     
-    if timerRunning == True and timer > 0:
+    if timer > 0:
         cell1 = random.randint(0,8)
         cell2 = random.randint(0,8)
+
+        plusDuck.rect.x = circles[cell1].x
+        plusDuck.rect.y =  circles[cell1].y
+        minusDuck.rect.x = circles[cell2].x
+        minusDuck.rect.y = circles[cell2].y
             
-        screen.blit(plusDuck.image, [circles[cell1].x, circles[cell1].y])
-        screen.blit(minusDuck.image, [circles[cell2].x, circles[cell2].y])
+        screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
+        screen.blit(minusDuck.image, [minusDuck.rect.x, minusDuck.rect.y])
     pygame.time.delay(400)
+
+    if mousePos != 0:
+        if plusDuck.rect.collidepoint(mousePos):
+            print("Yes")
+        elif minusDuck.rect.collidepoint(mousePos):
+            print("No")
         
     pygame.display.update()
     
