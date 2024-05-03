@@ -53,8 +53,6 @@ async def main():
             drawGrid()
         elif gameState == "game":
             gameLogic(mousePos)
-        elif gameState == "pause":
-            print("pause")
         elif gameState == "exit":
             pygame.quit()
             sys.exit()
@@ -126,12 +124,11 @@ def instructionScreen():
 
 
 def drawGrid():
-    global screen, gameState, font, score
+    global screen, gameState
     rect_size = 150
     circle_size = 60
     rect_x = (SCREEN_WIDTH / 2) - ((rect_size * 3) / 2)
     rect_y = (SCREEN_HEIGHT / 2) - ((rect_size * 3) / 2)
-    scoreText = font.render("Score: " + str(score), False, (0,0,0))
 
     screen.fill("white")
             
@@ -157,8 +154,6 @@ def drawGrid():
         # Increments y value by size variable
         rect_y = rect_y + rect_size
 
-    screen.blit(scoreText, [rect_x, 60])
-
     gameState = "game"
 
     # Updates display
@@ -167,6 +162,7 @@ def drawGrid():
 
 def gameLogic(mousePos):
     global screen, timer, gameState, cells, circles, score, timerText
+    scoreText = font.render("Score: " + str(score), False, (0,0,0))
 
     class gameSprite(pygame.sprite.Sprite):
         def __init__(self, img):
@@ -182,17 +178,23 @@ def gameLogic(mousePos):
     plusDuck = gameSprite(plusDuckPath)
     minusDuck = gameSprite(minusDuckPath)
 
-    # Timer Code
+    # Timer label Code
     textRect = pygame.Rect(625, 20, 150, 30)
-    subScreen = screen.subsurface(textRect)
-    subScreen.fill("white")
-    subScreen.blit(timerText, [0, 0])
+    textScreen = screen.subsurface(textRect)
+    textScreen.fill("white")
+    textScreen.blit(timerText, [0, 0])
+
+    # Score label code
+    scoreRect = pygame.Rect(625, 70, 150, 30)
+    scoreScreen = screen.subsurface(scoreRect)
+    scoreScreen.fill("white")
+    scoreScreen.blit(scoreText, [0, 0])
 
     # Add empty cell images into cells
     for i in circles:
         screen.blit(emptyCell.image, [i.x, i.y])
 
-    timerRunning = True
+    #timerRunning = True
     
     if timer > 0:
         cell1 = random.randint(0,8)
@@ -205,13 +207,21 @@ def gameLogic(mousePos):
             
         screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
         screen.blit(minusDuck.image, [minusDuck.rect.x, minusDuck.rect.y])
-    pygame.time.delay(400)
+        pygame.time.delay(100)
 
     if mousePos != 0:
         if plusDuck.rect.collidepoint(mousePos):
-            print("Yes")
+            score += 1
+            scoreText = font.render("Score: " + str(score), False, (0,0,0))
+            mousePos = 0
+            #print("Yes")
         elif minusDuck.rect.collidepoint(mousePos):
-            print("No")
+            score -= 1
+            scoreText = font.render("Score: " + str(score), False, (0,0,0))
+            mousePos = 0
+            #print("No")
+
+    print(mousePos)
         
     pygame.display.update()
     
