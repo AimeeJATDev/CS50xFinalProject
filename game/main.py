@@ -20,6 +20,7 @@ font = pygame.font.SysFont("Calibri", 40)
 running = True
 gameState = "start"
 mousePos = 0
+mousePressed = 0
 cells = []
 circles = []
 score = 0
@@ -39,6 +40,7 @@ async def main():
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
+                mousePressed = pygame.mouse.get_pressed()[0]
             elif event.type == timerEvent:
                 timer -= 1
                 timerText = font.render("Time: " + str(timer), False, [0,0,0])
@@ -52,13 +54,13 @@ async def main():
         elif gameState == "setup":
             drawGrid()
         elif gameState == "game":
-            gameLogic(mousePos)
+            gameLogic(mousePos, mousePressed)
         elif gameState == "exit":
             pygame.quit()
             sys.exit()
     
         pygame.display.flip()
-        clock.tick(30)
+        clock.tick(3)
 
         await asyncio.sleep(0)
 
@@ -160,7 +162,7 @@ def drawGrid():
     pygame.display.update()
 
 
-def gameLogic(mousePos):
+def gameLogic(mousePos, mousePressed):
     global screen, timer, gameState, cells, circles, score, timerText
     scoreText = font.render("Score: " + str(score), False, (0,0,0))
 
@@ -207,27 +209,23 @@ def gameLogic(mousePos):
             
         screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
         screen.blit(minusDuck.image, [minusDuck.rect.x, minusDuck.rect.y])
-        pygame.time.delay(100)
+        #pygame.time.delay(400)
 
-    if mousePos != 0:
+    if mousePos != 0 and mousePressed == True:
         if plusDuck.rect.collidepoint(mousePos):
             score += 1
             scoreText = font.render("Score: " + str(score), False, (0,0,0))
-            mousePos = 0
-            #print("Yes")
+            mousePressed = False
         elif minusDuck.rect.collidepoint(mousePos):
             score -= 1
             scoreText = font.render("Score: " + str(score), False, (0,0,0))
-            mousePos = 0
-            #print("No")
+            mousePressed = False
 
-    print(mousePos)
+    print(mousePressed)
         
     pygame.display.update()
     
 
-
-    
 # Always be at bottom of file
 asyncio.run(main())
 
