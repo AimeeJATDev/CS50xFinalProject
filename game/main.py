@@ -41,6 +41,8 @@ async def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
                 mousePressed = pygame.mouse.get_pressed()[0]
+            elif event.type == pygame.MOUSEBUTTONUP:
+                mousePos = 0
             elif event.type == timerEvent:
                 timer -= 1
                 timerText = font.render("Time: " + str(timer), False, [0,0,0])
@@ -221,7 +223,7 @@ def gameLogic(mousePos, mousePressed):
             scoreText = font.render("Score: " + str(score), False, (0,0,0))
             mousePressed = False
 
-    print(mousePressed)
+    print(mousePos)
         
     pygame.display.update()
     
