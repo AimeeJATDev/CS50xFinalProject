@@ -42,7 +42,9 @@ async def main():
                 mousePos = pygame.mouse.get_pos()
                 mousePressed = pygame.mouse.get_pressed()[0]
             elif event.type == pygame.MOUSEBUTTONUP:
+                pygame.time.wait(10)
                 mousePos = 0
+                
             elif event.type == timerEvent:
                 timer -= 1
                 timerText = font.render("Time: " + str(timer), False, [0,0,0])
@@ -62,7 +64,7 @@ async def main():
             sys.exit()
     
         pygame.display.flip()
-        clock.tick(3)
+        clock.tick(5)
 
         await asyncio.sleep(0)
 
@@ -197,8 +199,6 @@ def gameLogic(mousePos, mousePressed):
     # Add empty cell images into cells
     for i in circles:
         screen.blit(emptyCell.image, [i.x, i.y])
-
-    #timerRunning = True
     
     if timer > 0:
         cell1 = random.randint(0,8)
@@ -211,17 +211,15 @@ def gameLogic(mousePos, mousePressed):
             
         screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
         screen.blit(minusDuck.image, [minusDuck.rect.x, minusDuck.rect.y])
-        #pygame.time.delay(400)
+        #pygame.time.wait(400)
 
-    if mousePos != 0 and mousePressed == True:
+    if mousePos != 0:
         if plusDuck.rect.collidepoint(mousePos):
             score += 1
             scoreText = font.render("Score: " + str(score), False, (0,0,0))
-            mousePressed = False
         elif minusDuck.rect.collidepoint(mousePos):
             score -= 1
             scoreText = font.render("Score: " + str(score), False, (0,0,0))
-            mousePressed = False
 
     print(mousePos)
         
