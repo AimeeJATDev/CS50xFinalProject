@@ -24,6 +24,8 @@ mousePressed = 0
 cells = []
 circles = []
 score = 0
+cell1 = 0
+cell2 = 0
 
 timer = 20
 timerInterval = 1000
@@ -31,8 +33,11 @@ timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
 timerText = font.render("Time: " + str(timer), False, [0,0,0])
 
+cellTimer = 1
+pygame.time.set_timer(timerEvent, 1000)
+
 async def main():
-    global screen, clock, timer, running, mousePos, timerText
+    global screen, clock, timer, running, mousePos, timerText, cellTimer
     
     while running:
         for event in pygame.event.get():
@@ -47,9 +52,13 @@ async def main():
                 
             elif event.type == timerEvent:
                 timer -= 1
+                cellTimer -= 1
+                print(timer)
                 timerText = font.render("Time: " + str(timer), False, [0,0,0])
                 if timer == 0:
                     pygame.time.set_timer(timerEvent, 0)
+                elif cellTimer < 0:
+                    cellTimer = 1
 
         if gameState == "start":
             titleScreen(mousePos)
@@ -64,7 +73,7 @@ async def main():
             sys.exit()
     
         pygame.display.flip()
-        clock.tick(5)
+        #clock.tick(15)
 
         await asyncio.sleep(0)
 
@@ -72,7 +81,9 @@ async def main():
 
 
 def titleScreen(mousePos):
-    global screen, gameState
+    global screen, gameState, clock
+
+    clock.tick(15)
 
     # Fills screen with colour
     screen.fill("#11009E")
@@ -167,8 +178,10 @@ def drawGrid():
 
 
 def gameLogic(mousePos, mousePressed):
-    global screen, timer, gameState, cells, circles, score, timerText
+    global screen, timer, gameState, cells, circles, score, timerText, clock, cell1, cell2, timerEvent
     scoreText = font.render("Score: " + str(score), False, (0,0,0))
+
+    clock.tick(15)
 
     class gameSprite(pygame.sprite.Sprite):
         def __init__(self, img):
@@ -201,8 +214,11 @@ def gameLogic(mousePos, mousePressed):
         screen.blit(emptyCell.image, [i.x, i.y])
     
     if timer > 0:
-        cell1 = random.randint(0,8)
-        cell2 = random.randint(0,8)
+        
+        if cellTimer == 0:
+            cell1 = random.randint(0, 8)
+            cell2 = random.randint(0, 8)
+            print(cell1, cell2)
 
         plusDuck.rect.x = circles[cell1].x
         plusDuck.rect.y =  circles[cell1].y
@@ -211,7 +227,6 @@ def gameLogic(mousePos, mousePressed):
             
         screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
         screen.blit(minusDuck.image, [minusDuck.rect.x, minusDuck.rect.y])
-        #pygame.time.wait(400)
 
     if mousePos != 0:
         if plusDuck.rect.collidepoint(mousePos):
@@ -221,7 +236,8 @@ def gameLogic(mousePos, mousePressed):
             score -= 1
             scoreText = font.render("Score: " + str(score), False, (0,0,0))
 
-    print(mousePos)
+    
+    print(cellTimer)
         
     pygame.display.update()
     
