@@ -34,11 +34,8 @@ timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
 timerText = font.render("Time: " + str(timer), False, [0,0,0])
 
-cellTimer = 1
-pygame.time.set_timer(timerEvent, 1000)
-
 async def main():
-    global screen, clock, timer, running, mousePos, timerText, cellTimer
+    global screen, clock, timer, running, mousePos, timerText
     
     while running:
         for event in pygame.event.get():
@@ -46,19 +43,14 @@ async def main():
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
-                mousePressed = pygame.mouse.get_pressed()[0]
             elif event.type == pygame.MOUSEBUTTONUP:
                 pygame.time.wait(10)
                 mousePos = 0
-                
             elif event.type == timerEvent:
                 timer -= 1
-                #cellTimer -= 1
                 timerText = font.render("Time: " + str(timer), False, [0,0,0])
                 if timer == 0:
                     pygame.time.set_timer(timerEvent, 0)
-                #elif cellTimer < 0:
-                    #cellTimer = 1
 
         if gameState == "start":
             titleScreen(mousePos)
@@ -67,7 +59,7 @@ async def main():
         elif gameState == "setup":
             drawGrid()
         elif gameState == "game":
-            gameLogic(mousePos, mousePressed)
+            gameLogic(mousePos)
         elif gameState == "exit":
             pygame.quit()
             sys.exit()
@@ -175,8 +167,8 @@ def drawGrid():
     pygame.display.update()
 
 
-def gameLogic(mousePos, mousePressed):
-    global screen, timer, gameState, cells, circles, score, timerText, clock, cell1, cell2, timerEvent, startTime
+def gameLogic(mousePos):
+    global screen, timer, gameState, cells, circles, score, timerText, cell1, cell2, startTime
     scoreText = font.render("Score: " + str(score), False, (0,0,0))
 
     class gameSprite(pygame.sprite.Sprite):
@@ -214,7 +206,6 @@ def gameLogic(mousePos, mousePressed):
             cell1 = random.randint(0, 8)
             cell2 = random.randint(0, 8)
             startTime = pygame.time.get_ticks()
-            print(cell1, cell2)
 
         plusDuck.rect.x = circles[cell1].x
         plusDuck.rect.y =  circles[cell1].y
@@ -231,8 +222,6 @@ def gameLogic(mousePos, mousePressed):
         elif minusDuck.rect.collidepoint(mousePos):
             score -= 1
             scoreText = font.render("Score: " + str(score), False, (0,0,0))
-
-    #print(pygame.time.get_ticks(), startTime)
         
     pygame.display.update()
     
