@@ -19,14 +19,13 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont("Calibri", 40)
 running = True
 gameState = "start"
-mousePos = 0
-mousePressed = 0
 cells = []
 circles = []
 score = 0
 cell1 = 0
 cell2 = 0
 startTime = pygame.time.get_ticks()
+scoreText = font.render("Score: " + str(score), False, (0,0,0))
 
 timer = 20
 timerInterval = 1000
@@ -34,8 +33,32 @@ timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
 timerText = font.render("Time: " + str(timer), False, [0,0,0])
 
+class gameSprite(pygame.sprite.Sprite):
+        def __init__(self, img):
+            pygame.sprite.Sprite.__init__(self)
+            self.image = pygame.image.load(os.path.join(img))
+            self.rect = self.image.get_rect()
+
+# TODO: Remove game/ from path before packaging with pygbag
+# Image paths
+startImgPath = "game/images/start_btn.png"
+instructionImgPath = "game/images/instructions_btn.png"
+exitImgPath = "game/images/exit_btn.png"
+
+emptyCellPath = "game/images/emptyCell.png"
+plusDuckPath = "game/images/plusDuck.png"
+minusDuckPath = "game/images/minusDuck.png"
+
+emptyCell = gameSprite(emptyCellPath)
+plusDuck = gameSprite(plusDuckPath)
+minusDuck = gameSprite(minusDuckPath)
+
+startImg = gameSprite(startImgPath)
+instructionImg = gameSprite(instructionImgPath)
+exitImg = gameSprite(exitImgPath)
+
 async def main():
-    global screen, clock, timer, running, mousePos, timerText
+    global screen, clock, timer, running, mousePos, timerText, score, scoreText, gameState
     
     while running:
         for event in pygame.event.get():
@@ -43,9 +66,18 @@ async def main():
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
-            elif event.type == pygame.MOUSEBUTTONUP:
-                pygame.time.wait(10)
-                mousePos = 0
+                if startImg.rect.collidepoint(event.pos):
+                    gameState = "setup"
+                elif instructionImg.rect.collidepoint(event.pos):
+                    gameState = "instructions"
+                elif exitImg.rect.collidepoint(event.pos):
+                    gameState = "exit"
+                elif plusDuck.rect.collidepoint(event.pos):
+                    score += 1
+                    scoreText = font.render("Score: " + str(score), False, (0,0,0))
+                elif minusDuck.rect.collidepoint(event.pos):
+                    score -= 1
+                    scoreText = font.render("Score: " + str(score), False, (0,0,0))
             elif event.type == timerEvent:
                 timer -= 1
                 timerText = font.render("Time: " + str(timer), False, [0,0,0])
@@ -53,13 +85,13 @@ async def main():
                     pygame.time.set_timer(timerEvent, 0)
 
         if gameState == "start":
-            titleScreen(mousePos)
+            titleScreen()
         elif gameState == "instructions":
             instructionScreen()
         elif gameState == "setup":
             drawGrid()
         elif gameState == "game":
-            gameLogic(mousePos)
+            gameLogic()
         elif gameState == "exit":
             pygame.quit()
             sys.exit()
@@ -72,29 +104,11 @@ async def main():
     pygame.quit()
 
 
-def titleScreen(mousePos):
-    global screen, gameState, clock
+def titleScreen():
+    global screen, gameState
 
     # Fills screen with colour
     screen.fill("#11009E")
-
-    # TODO: Remove game/ from path before packaging with pygbag
-    # Image paths
-    startImgPath = "game/images/start_btn.png"
-    instructionImgPath = "game/images/instructions_btn.png"
-    exitImgPath = "game/images/exit_btn.png"
-
-    # Create btnSprite class
-    class btnSprite(pygame.sprite.Sprite):
-        def __init__(self, img):
-            pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.image.load(os.path.join(img))
-            self.rect = self.image.get_rect()
-    
-    # Create buttons using btnSprite class
-    startImg = btnSprite(startImgPath)
-    instructionImg = btnSprite(instructionImgPath)
-    exitImg = btnSprite(exitImgPath)
 
     # Calculate the x value needed to place button in middle of screen
     centerX = (SCREEN_WIDTH / 2) - (startImg.image.get_width() / 2)
@@ -111,16 +125,7 @@ def titleScreen(mousePos):
     screen.blit(startImg.image, [startImg.rect.x, startImg.rect.y])
     screen.blit(instructionImg.image, [instructionImg.rect.x, instructionImg.rect.y])
     screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
-
-    # If mousePos variable doesn't equal 0, check for collisions
-    if mousePos != 0:
-        if startImg.rect.collidepoint(mousePos):
-            gameState = "setup"
-        elif instructionImg.rect.collidepoint(mousePos):
-            gameState = "instructions"
-        elif exitImg.rect.collidepoint(mousePos):
-            gameState = "exit"
-
+      
     # Update screen
     pygame.display.update()
 
@@ -140,7 +145,6 @@ def drawGrid():
     screen.fill("white")
             
     for i in range(3):
-         
         for j in range(3):
             # Creates a Rect object
             rect = pygame.Rect(rect_x, rect_y, rect_size, rect_size)
@@ -167,23 +171,8 @@ def drawGrid():
     pygame.display.update()
 
 
-def gameLogic(mousePos):
-    global screen, timer, gameState, cells, circles, score, timerText, cell1, cell2, startTime
-    scoreText = font.render("Score: " + str(score), False, (0,0,0))
-
-    class gameSprite(pygame.sprite.Sprite):
-        def __init__(self, img):
-            pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.image.load(os.path.join(img))
-            self.rect = self.image.get_rect()
-
-    emptyCellPath = "game/images/emptyCell.png"
-    plusDuckPath = "game/images/plusDuck.png"
-    minusDuckPath = "game/images/minusDuck.png"
-
-    emptyCell = gameSprite(emptyCellPath)
-    plusDuck = gameSprite(plusDuckPath)
-    minusDuck = gameSprite(minusDuckPath)
+def gameLogic():
+    global screen, timer, gameState, circles, score, timerText, cell1, cell2, startTime, scoreText
 
     # Timer label Code
     textRect = pygame.Rect(625, 20, 150, 30)
@@ -214,14 +203,6 @@ def gameLogic(mousePos):
             
         screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
         screen.blit(minusDuck.image, [minusDuck.rect.x, minusDuck.rect.y])
-
-    if mousePos != 0:
-        if plusDuck.rect.collidepoint(mousePos):
-            score += 1
-            scoreText = font.render("Score: " + str(score), False, (0,0,0))
-        elif minusDuck.rect.collidepoint(mousePos):
-            score -= 1
-            scoreText = font.render("Score: " + str(score), False, (0,0,0))
         
     pygame.display.update()
     
