@@ -16,7 +16,7 @@ SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 caption = pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
-font = pygame.font.SysFont("Calibri", 40)
+font = pygame.font.SysFont("Calibri", 20)
 running = True
 gameState = "start"
 cells = []
@@ -58,14 +58,13 @@ instructionImg = gameSprite(instructionImgPath)
 exitImg = gameSprite(exitImgPath)
 
 async def main():
-    global screen, clock, timer, running, mousePos, timerText, score, scoreText, gameState
+    global screen, clock, timer, running, timerText, score, scoreText, gameState
     
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                mousePos = pygame.mouse.get_pos()
                 if startImg.rect.collidepoint(event.pos):
                     gameState = "setup"
                 elif instructionImg.rect.collidepoint(event.pos):
