@@ -16,7 +16,7 @@ SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 caption = pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
-font = pygame.font.SysFont("Calibri", 20)
+font = pygame.font.SysFont("Calibri", 30)
 running = True
 gameState = "start"
 cells = []
@@ -65,18 +65,20 @@ async def main():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if startImg.rect.collidepoint(event.pos):
-                    gameState = "setup"
-                elif instructionImg.rect.collidepoint(event.pos):
-                    gameState = "instructions"
-                elif exitImg.rect.collidepoint(event.pos):
-                    gameState = "exit"
-                elif plusDuck.rect.collidepoint(event.pos):
-                    score += 1
-                    scoreText = font.render("Score: " + str(score), False, (0,0,0))
-                elif minusDuck.rect.collidepoint(event.pos):
-                    score -= 1
-                    scoreText = font.render("Score: " + str(score), False, (0,0,0))
+                if gameState == "start":
+                    if startImg.rect.collidepoint(event.pos):
+                        gameState = "setup"
+                    elif instructionImg.rect.collidepoint(event.pos):
+                        gameState = "instructions"
+                    elif exitImg.rect.collidepoint(event.pos):
+                        gameState = "exit"
+                if gameState == "game":
+                    if plusDuck.rect.collidepoint(event.pos):
+                        score += 1
+                        scoreText = font.render("Score: " + str(score), False, (0,0,0))
+                    elif minusDuck.rect.collidepoint(event.pos):
+                        score -= 1
+                        scoreText = font.render("Score: " + str(score), False, (0,0,0))
             elif event.type == timerEvent:
                 timer -= 1
                 timerText = font.render("Time: " + str(timer), False, [0,0,0])
