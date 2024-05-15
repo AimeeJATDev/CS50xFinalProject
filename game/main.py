@@ -22,8 +22,8 @@ gameState = "start"
 cells = []
 circles = []
 score = 0
-cell1 = 0
-cell2 = 0
+cell1 = random.randint(0,8)
+cell2 = random.randint(0,8)
 startTime = pygame.time.get_ticks()
 scoreText = font.render("Score: " + str(score), False, (0,0,0))
 
@@ -72,7 +72,7 @@ async def main():
                         gameState = "instructions"
                     elif exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
-                if gameState == "game":
+                elif gameState == "game":
                     if plusDuck.rect.collidepoint(event.pos):
                         score += 1
                         scoreText = font.render("Score: " + str(score), False, (0,0,0))
@@ -193,9 +193,12 @@ def gameLogic():
     
     if timer > 0:
         if pygame.time.get_ticks() - startTime > 2000:
-            cell1 = random.randint(0, 8)
-            cell2 = random.randint(0, 8)
-            startTime = pygame.time.get_ticks()
+            cell1 = random.randint(0,8)
+            cell2 = random.randint(0,8)
+            if cell1 == cell2:
+                cell2 = random.randint(0,8)
+            else:
+                startTime = pygame.time.get_ticks()
 
         plusDuck.rect.x = circles[cell1].x
         plusDuck.rect.y =  circles[cell1].y
