@@ -34,10 +34,11 @@ pygame.time.set_timer(timerEvent, timerInterval)
 timerText = font.render("Time: " + str(timer), False, [0,0,0])
 
 class gameSprite(pygame.sprite.Sprite):
-        def __init__(self, img):
+        def __init__(self, img, clicked):
             pygame.sprite.Sprite.__init__(self)
             self.image = pygame.image.load(os.path.join(img))
             self.rect = self.image.get_rect()
+            self.clicked = clicked
 
 # TODO: Remove game/ from path before packaging with pygbag
 # Image paths
@@ -45,17 +46,18 @@ startImgPath = "game/images/start_btn.png"
 instructionImgPath = "game/images/instructions_btn.png"
 exitImgPath = "game/images/exit_btn.png"
 
+startImg = gameSprite(startImgPath, False)
+instructionImg = gameSprite(instructionImgPath, False)
+exitImg = gameSprite(exitImgPath, False)
+
 emptyCellPath = "game/images/emptyCell.png"
 plusDuckPath = "game/images/plusDuck.png"
 minusDuckPath = "game/images/minusDuck.png"
 
-emptyCell = gameSprite(emptyCellPath)
-plusDuck = gameSprite(plusDuckPath)
-minusDuck = gameSprite(minusDuckPath)
+emptyCell = gameSprite(emptyCellPath, False)
+plusDuck = gameSprite(plusDuckPath, False)
+minusDuck = gameSprite(minusDuckPath, False)
 
-startImg = gameSprite(startImgPath)
-instructionImg = gameSprite(instructionImgPath)
-exitImg = gameSprite(exitImgPath)
 
 async def main():
     global screen, clock, timer, running, timerText, score, scoreText, gameState
@@ -74,11 +76,15 @@ async def main():
                         gameState = "exit"
                 elif gameState == "game":
                     if plusDuck.rect.collidepoint(event.pos):
-                        score += 1
-                        scoreText = font.render("Score: " + str(score), False, (0,0,0))
+                        if plusDuck.clicked == False:
+                            score += 1
+                            plusDuck.clicked = True
+                            scoreText = font.render("Score: " + str(score), False, (0,0,0))
                     elif minusDuck.rect.collidepoint(event.pos):
-                        score -= 1
-                        scoreText = font.render("Score: " + str(score), False, (0,0,0))
+                        if minusDuck.clicked == False:
+                            score -= 1
+                            minusDuck.clicked = True
+                            scoreText = font.render("Score: " + str(score), False, (0,0,0))
             elif event.type == timerEvent:
                 timer -= 1
                 timerText = font.render("Time: " + str(timer), False, [0,0,0])
@@ -195,6 +201,8 @@ def gameLogic():
         if pygame.time.get_ticks() - startTime > 2000:
             cell1 = random.randint(0,8)
             cell2 = random.randint(0,8)
+            plusDuck.clicked = False
+            minusDuck.clicked = False
             if cell1 == cell2:
                 cell2 = random.randint(0,8)
             else:
