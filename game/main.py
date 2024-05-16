@@ -198,20 +198,20 @@ def gameLogic():
         screen.blit(emptyCell.image, [i.x, i.y])
     
     if timer > 0:
-        if pygame.time.get_ticks() - startTime > 2000:
+        if pygame.time.get_ticks() - startTime > 500:
             cell1 = random.randint(0,8)
             cell2 = random.randint(0,8)
             plusDuck.clicked = False
             minusDuck.clicked = False
             if cell1 == cell2:
+                cell1 = random.randint(0,8)
                 cell2 = random.randint(0,8)
             else:
                 startTime = pygame.time.get_ticks()
-
-        plusDuck.rect.x = circles[cell1].x
-        plusDuck.rect.y =  circles[cell1].y
-        minusDuck.rect.x = circles[cell2].x
-        minusDuck.rect.y = circles[cell2].y
+                plusDuck.rect.x = circles[cell1].x
+                plusDuck.rect.y =  circles[cell1].y
+                minusDuck.rect.x = circles[cell2].x
+                minusDuck.rect.y = circles[cell2].y
             
         screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
         screen.blit(minusDuck.image, [minusDuck.rect.x, minusDuck.rect.y])
