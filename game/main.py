@@ -1,12 +1,13 @@
 # Game Colour Palette: https://colorhunt.co/palette/11009e4942e4e6b9defae7f3
 
+# Import Libraries
 import os
 import sys
 import pygame
 import asyncio
 import random
 
-#PyGame initialisation
+#PyGame Initialisation
 pygame.init()
 pygame.font.init()
 
@@ -27,12 +28,14 @@ cell2 = random.randint(0,8)
 startTime = pygame.time.get_ticks()
 scoreText = font.render("Score: " + str(score), False, (0,0,0))
 
+# Timer Set Up
 timer = 20
 timerInterval = 1000
 timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
 timerText = font.render("Time: " + str(timer), False, [0,0,0])
 
+# Creation of gameSprite class
 class gameSprite(pygame.sprite.Sprite):
         def __init__(self, img, clicked):
             pygame.sprite.Sprite.__init__(self)
@@ -46,24 +49,28 @@ startImgPath = "game/images/start_btn.png"
 instructionImgPath = "game/images/instructions_btn.png"
 exitImgPath = "game/images/exit_btn.png"
 
-startImg = gameSprite(startImgPath, False)
-instructionImg = gameSprite(instructionImgPath, False)
-exitImg = gameSprite(exitImgPath, False)
-
 emptyCellPath = "game/images/emptyCell.png"
 plusDuckPath = "game/images/plusDuck.png"
 minusDuckPath = "game/images/minusDuck.png"
+
+# Creation of sprites using the gameSprite class
+startImg = gameSprite(startImgPath, False)
+instructionImg = gameSprite(instructionImgPath, False)
+exitImg = gameSprite(exitImgPath, False)
 
 emptyCell = gameSprite(emptyCellPath, False)
 plusDuck = gameSprite(plusDuckPath, False)
 minusDuck = gameSprite(minusDuckPath, False)
 
 
+# Main Function
 async def main():
     global screen, clock, timer, running, timerText, score, scoreText, gameState
     
+    # Main loop for the game
     while running:
         for event in pygame.event.get():
+            # If the game is quit, stop the main loop
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
