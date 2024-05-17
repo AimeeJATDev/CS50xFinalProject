@@ -99,6 +99,8 @@ async def main():
             drawGrid()
         elif gameState == "game":
             gameLogic()
+        elif gameState == "endgame":
+            endScreen()
         elif gameState == "exit":
             pygame.quit()
             sys.exit()
@@ -212,9 +214,27 @@ def gameLogic():
                 plusDuck.rect.y =  circles[cell1].y
                 minusDuck.rect.x = circles[cell2].x
                 minusDuck.rect.y = circles[cell2].y
-            
         screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
         screen.blit(minusDuck.image, [minusDuck.rect.x, minusDuck.rect.y])
+    elif timer <= 0:
+        gameState = "endgame"
+
+
+def endScreen():
+    global screen, score
+
+    screen.fill("white")
+
+    if score > 0:
+        successText = font.render("Congratulations!", False, (0,0,0))
+        screen.blit(successText, [0,0])
+    elif score <= 0:
+        failText = font.render("Game Over!", False, (0,0,0))
+        screen.blit(failText, [0,0])
+
+    finalScoreText = font.render("Your Score: " + str(score), False, (0,0,0))
+    screen.blit(finalScoreText, [0,40])
+        
         
     pygame.display.update()
     
