@@ -230,20 +230,31 @@ def gameLogic():
 def endScreen():
     global screen, score
 
-    screen.fill("white")
-
     finalScreenRect = pygame.Rect(0,0, 250, 100)
+
+    centerX = (SCREEN_WIDTH / 2) - (finalScreenRect.width / 2)
+    centerY = (SCREEN_HEIGHT / 2) - (finalScreenRect.height / 2)
+
+    finalScreenRect.x = centerX
+    finalScreenRect.y = centerY
+
     finalScreen = screen.subsurface(finalScreenRect)
+
+    screen.fill("white")
+    finalScreen.fill("blue")
 
     if score > 0:
         successText = font.render("Congratulations!", False, (0,0,0))
-        finalScreen.blit(successText, [0,0])
+        centerTextX = (finalScreenRect.width / 2) - (successText.get_width() / 2)
+        finalScreen.blit(successText, [centerTextX, 10])
     elif score <= 0:
         failText = font.render("Game Over!", False, (0,0,0))
-        finalScreen.blit(failText, [0,0])
+        centerTextX = (finalScreenRect.width / 2) - (failText.get_width() / 2)
+        finalScreen.blit(failText, [centerTextX, 10])
 
     finalScoreText = font.render("Your Score: " + str(score), False, (0,0,0))
-    finalScreen.blit(finalScoreText, [0,40])
+    centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
+    finalScreen.blit(finalScoreText, [centerTextX, 50])
         
         
     pygame.display.update()
