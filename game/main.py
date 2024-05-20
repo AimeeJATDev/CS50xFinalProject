@@ -232,15 +232,18 @@ def endScreen():
 
     screen.fill("white")
 
+    finalScreenRect = pygame.Rect(0,0, 250, 100)
+    finalScreen = screen.subsurface(finalScreenRect)
+
     if score > 0:
         successText = font.render("Congratulations!", False, (0,0,0))
-        screen.blit(successText, [0,0])
+        finalScreen.blit(successText, [0,0])
     elif score <= 0:
         failText = font.render("Game Over!", False, (0,0,0))
-        screen.blit(failText, [0,0])
+        finalScreen.blit(failText, [0,0])
 
     finalScoreText = font.render("Your Score: " + str(score), False, (0,0,0))
-    screen.blit(finalScoreText, [0,40])
+    finalScreen.blit(finalScoreText, [0,40])
         
         
     pygame.display.update()
