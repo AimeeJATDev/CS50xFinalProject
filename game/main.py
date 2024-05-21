@@ -169,7 +169,7 @@ def drawGrid():
     rect_y = (SCREEN_HEIGHT / 2) - ((rect_size * 3) / 2)
 
     # Fill the screen with a white colour
-    screen.fill("white")
+    screen.fill("#008DDA")
             
     for i in range(3):
         for j in range(3):
@@ -205,13 +205,13 @@ def gameLogic():
     # Timer label Code
     textRect = pygame.Rect(625, 20, 150, 30)
     textScreen = screen.subsurface(textRect)
-    textScreen.fill("white")
+    textScreen.fill("#008DDA")
     textScreen.blit(timerText, [0, 0])
 
     # Score label code
     scoreRect = pygame.Rect(625, 70, 150, 30)
     scoreScreen = screen.subsurface(scoreRect)
-    scoreScreen.fill("white")
+    scoreScreen.fill("#008DDA")
     scoreScreen.blit(scoreText, [0, 0])
 
     # Add empty cell images into cells
@@ -252,7 +252,7 @@ def endScreen():
 
     finalScreen = screen.subsurface(finalScreenRect)
 
-    screen.fill("white")
+    screen.fill("#008DDA")
     finalScreen.fill("blue")
 
     if score > 0:
