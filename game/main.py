@@ -74,6 +74,7 @@ async def main():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
+                # If gameState is start, check for collisions on each of the title screen buttons
                 if gameState == "start":
                     if startImg.rect.collidepoint(event.pos):
                         gameState = "setup"
@@ -81,6 +82,7 @@ async def main():
                         gameState = "instructions"
                     elif exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
+                # Else if gameState is game, check for collisions for each of the moving sprites in the game
                 elif gameState == "game":
                     if plusDuck.rect.collidepoint(event.pos):
                         if plusDuck.clicked == False:
@@ -98,6 +100,7 @@ async def main():
                 if timer == 0:
                     pygame.time.set_timer(timerEvent, 0)
 
+        # If/Else statement to call the different functions depending on what the gameState is
         if gameState == "start":
             titleScreen()
         elif gameState == "instructions":
@@ -112,6 +115,7 @@ async def main():
             pygame.quit()
             sys.exit()
     
+        # Updates screen
         pygame.display.flip()
         clock.tick(30)
 
@@ -121,6 +125,7 @@ async def main():
 
 
 def titleScreen():
+    # Declare global variables to be used in this function
     global screen, gameState
 
     # Fills screen with colour
@@ -147,17 +152,23 @@ def titleScreen():
 
 
 def instructionScreen():
+    global screen
     pygame.quit()
     sys.exit()
 
 
 def drawGrid():
+    # Declare global variables to be used in this function
     global screen, gameState
+
+    # Declare local variables
     rect_size = 150
     circle_size = 60
+    # Calculate where the x and y values of the grid so it can be centered on the screen
     rect_x = (SCREEN_WIDTH / 2) - ((rect_size * 3) / 2)
     rect_y = (SCREEN_HEIGHT / 2) - ((rect_size * 3) / 2)
 
+    # Fill the screen with a white colour
     screen.fill("white")
             
     for i in range(3):
@@ -181,6 +192,7 @@ def drawGrid():
         # Increments y value by size variable
         rect_y = rect_y + rect_size
 
+    # Changes gameState variable to "game"
     gameState = "game"
 
     # Updates display
