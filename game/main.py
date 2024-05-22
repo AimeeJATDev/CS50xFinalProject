@@ -49,11 +49,13 @@ startImgPath = "game/images/start_btn.png"
 instructionImgPath = "game/images/instructions_btn.png"
 exitImgPath = "game/images/exit_btn.png"
 
+gridBackgroundPath = "game/images/gridBackground.png"
 emptyCellPath = "game/images/emptyCell.png"
 plusDuckPath = "game/images/plusDuck.png"
 minusDuckPath = "game/images/minusDuck.png"
 
 # Creation of sprites using the gameSprite class
+gridBackground = gameSprite(gridBackgroundPath, False)
 startImg = gameSprite(startImgPath, False)
 instructionImg = gameSprite(instructionImgPath, False)
 exitImg = gameSprite(exitImgPath, False)
@@ -168,8 +170,13 @@ def drawGrid():
     rect_x = (SCREEN_WIDTH / 2) - ((rect_size * 3) / 2)
     rect_y = (SCREEN_HEIGHT / 2) - ((rect_size * 3) / 2)
 
+    gridBackground.rect.x = rect_x
+    gridBackground.rect.y = rect_y
+
     # Fill the screen with a white colour
     screen.fill("#008DDA")
+
+    screen.blit(gridBackground.image, [gridBackground.rect.x, gridBackground.rect.y])
             
     for i in range(3):
         for j in range(3):
@@ -178,7 +185,7 @@ def drawGrid():
             # Draws the rect object on the screen
             pygame.draw.rect(screen, (0,0,0), rect, 2)
             # Draws a circle in the center of rect, but the circle is the came colour as the background
-            circle = pygame.draw.circle(screen, ("white"), rect.center, circle_size)
+            circle = pygame.draw.circle(screen, ("#008DDA"), rect.center, circle_size)
             # Adds rect to cells list
             cells.append(rect)
             # Adds circle to circles list
