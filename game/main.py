@@ -45,7 +45,7 @@ class gameSprite(pygame.sprite.Sprite):
 
 # TODO: Remove game/ from path before packaging with pygbag
 # Image paths
-startImgPath = "game/images/test_btn.png"
+startImgPath = "game/images/start_btn.png"
 instructionImgPath = "game/images/instructions_btn.png"
 exitImgPath = "game/images/exit_btn.png"
 
@@ -185,7 +185,7 @@ def drawGrid():
             # Draws the rect object on the screen
             pygame.draw.rect(screen, (0,0,0), rect, 2)
             # Draws a circle in the center of rect, but the circle is the came colour as the background
-            circle = pygame.draw.circle(screen, ("#3282B8"), rect.center, circle_size)
+            circle = pygame.draw.circle(screen, ("#1B262C"), rect.center, circle_size)
             # Adds rect to cells list
             cells.append(rect)
             # Adds circle to circles list
