@@ -1,4 +1,4 @@
-# Game Colour Palette: https://colorhunt.co/palette/11009e4942e4e6b9defae7f3
+# Game Colour Palette: https://colorhunt.co/palette/1b262c0f4c753282b8bbe1fa
 
 # Import Libraries
 import os
@@ -45,7 +45,7 @@ class gameSprite(pygame.sprite.Sprite):
 
 # TODO: Remove game/ from path before packaging with pygbag
 # Image paths
-startImgPath = "game/images/start_btn.png"
+startImgPath = "game/images/test_btn.png"
 instructionImgPath = "game/images/instructions_btn.png"
 exitImgPath = "game/images/exit_btn.png"
 
@@ -131,7 +131,7 @@ def titleScreen():
     global screen, gameState
 
     # Fills screen with colour
-    screen.fill("#11009E")
+    screen.fill("#1B262C")
 
     # Calculate the x value needed to place button in middle of screen
     centerX = (SCREEN_WIDTH / 2) - (startImg.image.get_width() / 2)
@@ -174,7 +174,7 @@ def drawGrid():
     gridBackground.rect.y = rect_y
 
     # Fill the screen with a white colour
-    screen.fill("#008DDA")
+    screen.fill("#3282B8")
 
     screen.blit(gridBackground.image, [gridBackground.rect.x, gridBackground.rect.y])
             
@@ -185,7 +185,7 @@ def drawGrid():
             # Draws the rect object on the screen
             pygame.draw.rect(screen, (0,0,0), rect, 2)
             # Draws a circle in the center of rect, but the circle is the came colour as the background
-            circle = pygame.draw.circle(screen, ("#008DDA"), rect.center, circle_size)
+            circle = pygame.draw.circle(screen, ("#3282B8"), rect.center, circle_size)
             # Adds rect to cells list
             cells.append(rect)
             # Adds circle to circles list
@@ -212,13 +212,13 @@ def gameLogic():
     # Timer label Code
     textRect = pygame.Rect(625, 20, 150, 30)
     textScreen = screen.subsurface(textRect)
-    textScreen.fill("#008DDA")
+    textScreen.fill("#3282B8")
     textScreen.blit(timerText, [0, 0])
 
     # Score label code
     scoreRect = pygame.Rect(625, 70, 150, 30)
     scoreScreen = screen.subsurface(scoreRect)
-    scoreScreen.fill("#008DDA")
+    scoreScreen.fill("#3282B8")
     scoreScreen.blit(scoreText, [0, 0])
 
     # Add empty cell images into cells
