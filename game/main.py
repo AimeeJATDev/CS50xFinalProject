@@ -48,6 +48,7 @@ class gameSprite(pygame.sprite.Sprite):
 startImgPath = "game/images/start_btn.png"
 instructionImgPath = "game/images/instructions_btn.png"
 exitImgPath = "game/images/exit_btn.png"
+titleScreenImgPath = "game/images/title_screen_btn.png"
 
 gridBackgroundPath = "game/images/gridBackground.png"
 emptyCellPath = "game/images/emptyCell.png"
@@ -59,6 +60,7 @@ gridBackground = gameSprite(gridBackgroundPath, False)
 startImg = gameSprite(startImgPath, False)
 instructionImg = gameSprite(instructionImgPath, False)
 exitImg = gameSprite(exitImgPath, False)
+titleScreenImg = gameSprite(titleScreenImgPath, False)
 
 emptyCell = gameSprite(emptyCellPath, False)
 plusDuck = gameSprite(plusDuckPath, False)
@@ -84,6 +86,9 @@ async def main():
                         gameState = "instructions"
                     elif exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
+                elif gameState == "instructions":
+                    if titleScreenImg.rect.collidepoint(event.pos):
+                        gameState = "start"
                 # Else if gameState is game, check for collisions for each of the moving sprites in the game
                 elif gameState == "game":
                     if plusDuck.rect.collidepoint(event.pos):
@@ -155,8 +160,15 @@ def titleScreen():
 
 def instructionScreen():
     global screen
-    pygame.quit()
-    sys.exit()
+
+    titleImgX = (SCREEN_WIDTH / 2) - (titleScreenImg.image.get_width() / 2)
+    
+    screen.fill("#1B262C")
+
+    titleScreenImg.rect.x = titleImgX
+    titleScreenImg.rect.y = 600
+
+    screen.blit(titleScreenImg.image, [titleScreenImg.rect.x, titleScreenImg.rect.y])
 
 
 def drawGrid():
