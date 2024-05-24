@@ -86,7 +86,7 @@ async def main():
                         gameState = "instructions"
                     elif exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
-                elif gameState == "instructions":
+                elif gameState == "instructions" or gameState == "endgame":
                     if titleScreenImg.rect.collidepoint(event.pos):
                         gameState = "start"
                 # Else if gameState is game, check for collisions for each of the moving sprites in the game
@@ -263,11 +263,14 @@ def endScreen():
 
     finalScreenRect = pygame.Rect(0,0, 250, 100)
 
-    centerX = (SCREEN_WIDTH / 2) - (finalScreenRect.width / 2)
-    centerY = (SCREEN_HEIGHT / 2) - (finalScreenRect.height / 2)
+    finalScreenX = (SCREEN_WIDTH / 2) - (finalScreenRect.width / 2)
+    finalScreenY = (SCREEN_HEIGHT / 2) - (finalScreenRect.height / 2)
+    titleImageX = (SCREEN_WIDTH / 2) - (titleScreenImg.image.get_width() / 2)
 
-    finalScreenRect.x = centerX
-    finalScreenRect.y = centerY
+    finalScreenRect.x = finalScreenX
+    finalScreenRect.y = finalScreenY
+    titleScreenImg.rect.x = titleImageX
+    titleScreenImg.rect.y = 600
 
     finalScreen = screen.subsurface(finalScreenRect)
 
@@ -286,6 +289,7 @@ def endScreen():
     finalScoreText = font.render("Your Score: " + str(score), False, (0,0,0))
     centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
     finalScreen.blit(finalScoreText, [centerTextX, 50])
+    screen.blit(titleScreenImg.image, [titleScreenImg.rect.x, titleScreenImg.rect.y])
         
         
     pygame.display.update()
