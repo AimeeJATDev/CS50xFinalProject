@@ -87,8 +87,8 @@ async def main():
                     elif exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
                 elif gameState == "instructions" or gameState == "endgame":
-                    if titleScreenImg.rect.collidepoint(event.pos):
-                        gameState = "start"
+                    if exitImg.rect.collidepoint(event.pos):
+                        gameState = "exit"
                 # Else if gameState is game, check for collisions for each of the moving sprites in the game
                 elif gameState == "game":
                     if plusDuck.rect.collidepoint(event.pos):
@@ -134,7 +134,6 @@ async def main():
 def titleScreen():
     # Declare global variables to be used in this function
     global screen, gameState
-
     # Fills screen with colour
     screen.fill("#1B262C")
 
@@ -265,12 +264,12 @@ def endScreen():
 
     finalScreenX = (SCREEN_WIDTH / 2) - (finalScreenRect.width / 2)
     finalScreenY = (SCREEN_HEIGHT / 2) - (finalScreenRect.height / 2)
-    titleImageX = (SCREEN_WIDTH / 2) - (titleScreenImg.image.get_width() / 2)
+    exitImageX = (SCREEN_WIDTH / 2) - (exitImg.image.get_width() / 2)
 
     finalScreenRect.x = finalScreenX
     finalScreenRect.y = finalScreenY
-    titleScreenImg.rect.x = titleImageX
-    titleScreenImg.rect.y = 600
+    exitImg.rect.x = exitImageX
+    exitImg.rect.y = 600
 
     finalScreen = screen.subsurface(finalScreenRect)
 
@@ -289,7 +288,7 @@ def endScreen():
     finalScoreText = font.render("Your Score: " + str(score), False, (0,0,0))
     centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
     finalScreen.blit(finalScoreText, [centerTextX, 50])
-    screen.blit(titleScreenImg.image, [titleScreenImg.rect.x, titleScreenImg.rect.y])
+    screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
         
         
     pygame.display.update()
