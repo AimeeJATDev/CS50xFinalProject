@@ -220,17 +220,13 @@ def drawGrid():
 def gameLogic():
     global screen, timer, gameState, circles, score, timerText, cell1, cell2, startTime, scoreText
 
-    # Timer label Code
-    textRect = pygame.Rect(625, 20, 150, 30)
-    textScreen = screen.subsurface(textRect)
-    textScreen.fill("#3282B8")
-    textScreen.blit(timerText, [0, 0])
+    lblBackground = pygame.Rect(625, 20, 450, 100)
+    lblBackgroundScreen = screen.subsurface(lblBackground)
 
-    # Score label code
-    scoreRect = pygame.Rect(625, 70, 150, 30)
-    scoreScreen = screen.subsurface(scoreRect)
-    scoreScreen.fill("#3282B8")
-    scoreScreen.blit(scoreText, [0, 0])
+    lblBackgroundScreen.blit(timerText, [5, 0])
+    lblBackgroundScreen.blit(scoreText, [5, 50])
+    
+    lblBackgroundScreen.fill("#3282B8")
 
     # Add empty cell images into cells
     for i in circles:
