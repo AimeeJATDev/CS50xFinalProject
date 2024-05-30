@@ -220,35 +220,41 @@ def drawGrid():
 def gameLogic():
     global screen, timer, gameState, circles, score, timerText, cell1, cell2, startTime, scoreText
 
+    # Create subscreen to display labels on
     lblBackground = pygame.Rect(625, 20, 450, 100)
     lblBackgroundScreen = screen.subsurface(lblBackground)
+    lblBackgroundScreen.fill("#3282B8")
 
+    # Add timer and score labels to the subscreen
     lblBackgroundScreen.blit(timerText, [5, 0])
     lblBackgroundScreen.blit(scoreText, [5, 50])
     
-    lblBackgroundScreen.fill("#3282B8")
-
     # Add empty cell images into cells
     for i in circles:
         screen.blit(emptyCell.image, [i.x, i.y])
     
     if timer > 0:
+        # Change the position of the sprites every 500ms
         if pygame.time.get_ticks() - startTime > 500:
             cell1 = random.randint(0,8)
             cell2 = random.randint(0,8)
             plusDuck.clicked = False
             minusDuck.clicked = False
+            # If both cell1 and cell2 are equal get another random value for cell2
             if cell1 == cell2:
-                cell1 = random.randint(0,8)
+                #cell1 = random.randint(0,8)
                 cell2 = random.randint(0,8)
+            # If both cell1 and cell two show a different value change the x and y values of the sprites and reset the startTime variable
             else:
                 startTime = pygame.time.get_ticks()
                 plusDuck.rect.x = circles[cell1].x
                 plusDuck.rect.y =  circles[cell1].y
                 minusDuck.rect.x = circles[cell2].x
                 minusDuck.rect.y = circles[cell2].y
+        # Update the sprites position on screen
         screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
         screen.blit(minusDuck.image, [minusDuck.rect.x, minusDuck.rect.y])
+    # If the timer has run out change the gameState to "endgame"
     elif timer <= 0:
         gameState = "endgame"
 
