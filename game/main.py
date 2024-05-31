@@ -17,7 +17,8 @@ SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 caption = pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
-font = pygame.font.SysFont("Calibri", 30)
+#font = pygame.font.SysFont("Calibri", 30)
+aldrichFont = pygame.font.Font("game/fonts/aldrich/Aldrich-Regular.ttf", 30)
 running = True
 gameState = "start"
 cells = []
@@ -26,14 +27,14 @@ score = 0
 cell1 = random.randint(0,8)
 cell2 = random.randint(0,8)
 startTime = pygame.time.get_ticks()
-scoreText = font.render("Score: " + str(score), False, (0,0,0))
+scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
 
 # Timer Set Up
 timer = 20
 timerInterval = 1000
 timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
-timerText = font.render("Time: " + str(timer), False, [0,0,0])
+timerText = aldrichFont.render("Time: " + str(timer), False, [0,0,0])
 
 # Creation of gameSprite class
 class gameSprite(pygame.sprite.Sprite):
@@ -73,6 +74,8 @@ minusDuck = gameSprite(minusDuckPath, False)
 # Main Function
 async def main():
     global screen, clock, timer, running, timerText, score, scoreText, gameState
+
+    print(pygame.font.get_fonts())
     
     # Main loop for the game
     while running:
@@ -98,15 +101,15 @@ async def main():
                         if plusDuck.clicked == False:
                             score += 1
                             plusDuck.clicked = True
-                            scoreText = font.render("Score: " + str(score), False, (0,0,0))
+                            scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
                     elif minusDuck.rect.collidepoint(event.pos):
                         if minusDuck.clicked == False:
                             score -= 1
                             minusDuck.clicked = True
-                            scoreText = font.render("Score: " + str(score), False, (0,0,0))
+                            scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
             elif event.type == timerEvent:
                 timer -= 1
-                timerText = font.render("Time: " + str(timer), False, [0,0,0])
+                timerText = aldrichFont.render("Time: " + str(timer), False, [0,0,0])
                 if timer == 0:
                     pygame.time.set_timer(timerEvent, 0)
 
@@ -223,16 +226,12 @@ def drawGrid():
 def gameLogic():
     global screen, timer, gameState, circles, score, timerText, cell1, cell2, startTime, scoreText
 
-    # Create subscreen to display labels on
-    #lblBackgroundRect = pygame.Rect(625, 20, 450, 100)
-    #lblBackgroundScreen = screen.subsurface(lblBackgroundRect)
-    #lblBackgroundScreen.fill("#0F4C75")
-
+    # Add background image to screen
     screen.blit(lblBackground.image, [625, 20])
 
-    # Add timer and score labels to the subscreen
-    screen.blit(timerText, [655, 30])
-    screen.blit(scoreText, [655, 70])
+    # Add timer and score labels to screen
+    screen.blit(timerText, [655, 35])
+    screen.blit(scoreText, [655, 75])
     
     # Add empty cell images into cells
     for i in circles:
@@ -284,15 +283,15 @@ def endScreen():
     finalScreen.fill("blue")
 
     if score > 0:
-        successText = font.render("Congratulations!", False, (0,0,0))
+        successText = aldrichFont.render("Congratulations!", False, (0,0,0))
         centerTextX = (finalScreenRect.width / 2) - (successText.get_width() / 2)
         finalScreen.blit(successText, [centerTextX, 10])
     elif score <= 0:
-        failText = font.render("Game Over!", False, (0,0,0))
+        failText = aldrichFont.render("Game Over!", False, (0,0,0))
         centerTextX = (finalScreenRect.width / 2) - (failText.get_width() / 2)
         finalScreen.blit(failText, [centerTextX, 10])
 
-    finalScoreText = font.render("Your Score: " + str(score), False, (0,0,0))
+    finalScoreText = aldrichFont.render("Your Score: " + str(score), False, (0,0,0))
     centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
     finalScreen.blit(finalScoreText, [centerTextX, 50])
     screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
