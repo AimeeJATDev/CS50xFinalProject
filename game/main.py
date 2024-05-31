@@ -51,17 +51,20 @@ exitImgPath = "game/images/exit_btn.png"
 titleScreenImgPath = "game/images/title_screen_btn.png"
 
 gridBackgroundPath = "game/images/gridBackground.png"
+lblBackgroundPath = "game/images/lblBackground.png"
 emptyCellPath = "game/images/emptyCell.png"
 plusDuckPath = "game/images/plusDuck.png"
 minusDuckPath = "game/images/minusDuck.png"
 
 # Creation of sprites using the gameSprite class
-gridBackground = gameSprite(gridBackgroundPath, False)
+
 startImg = gameSprite(startImgPath, False)
 instructionImg = gameSprite(instructionImgPath, False)
 exitImg = gameSprite(exitImgPath, False)
 titleScreenImg = gameSprite(titleScreenImgPath, False)
 
+gridBackground = gameSprite(gridBackgroundPath, False)
+lblBackground = gameSprite(lblBackgroundPath, False)
 emptyCell = gameSprite(emptyCellPath, False)
 plusDuck = gameSprite(plusDuckPath, False)
 minusDuck = gameSprite(minusDuckPath, False)
@@ -221,13 +224,15 @@ def gameLogic():
     global screen, timer, gameState, circles, score, timerText, cell1, cell2, startTime, scoreText
 
     # Create subscreen to display labels on
-    lblBackground = pygame.Rect(625, 20, 450, 100)
-    lblBackgroundScreen = screen.subsurface(lblBackground)
-    lblBackgroundScreen.fill("#3282B8")
+    #lblBackgroundRect = pygame.Rect(625, 20, 450, 100)
+    #lblBackgroundScreen = screen.subsurface(lblBackgroundRect)
+    #lblBackgroundScreen.fill("#0F4C75")
+
+    screen.blit(lblBackground.image, [625, 20])
 
     # Add timer and score labels to the subscreen
-    lblBackgroundScreen.blit(timerText, [5, 0])
-    lblBackgroundScreen.blit(scoreText, [5, 50])
+    screen.blit(timerText, [655, 30])
+    screen.blit(scoreText, [655, 70])
     
     # Add empty cell images into cells
     for i in circles:
