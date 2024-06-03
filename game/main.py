@@ -17,7 +17,6 @@ SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 caption = pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
-#font = pygame.font.SysFont("Calibri", 30)
 aldrichFont = pygame.font.Font("game/fonts/aldrich/Aldrich-Regular.ttf", 30)
 running = True
 gameState = "start"
@@ -55,7 +54,7 @@ gridBackgroundPath = "game/images/gridBackground.png"
 lblBackgroundPath = "game/images/lblBackground.png"
 emptyCellPath = "game/images/emptyCell.png"
 plusDuckPath = "game/images/plusDuck.png"
-minusDuckPath = "game/images/minusDuck.png"
+minusFishPath = "game/images/minusDuck.png"
 
 # Creation of sprites using the gameSprite class
 
@@ -68,14 +67,12 @@ gridBackground = gameSprite(gridBackgroundPath, False)
 lblBackground = gameSprite(lblBackgroundPath, False)
 emptyCell = gameSprite(emptyCellPath, False)
 plusDuck = gameSprite(plusDuckPath, False)
-minusDuck = gameSprite(minusDuckPath, False)
+minusFish = gameSprite(minusFishPath, False)
 
 
 # Main Function
 async def main():
     global screen, clock, timer, running, timerText, score, scoreText, gameState
-
-    print(pygame.font.get_fonts())
     
     # Main loop for the game
     while running:
@@ -102,10 +99,10 @@ async def main():
                             score += 1
                             plusDuck.clicked = True
                             scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
-                    elif minusDuck.rect.collidepoint(event.pos):
-                        if minusDuck.clicked == False:
+                    elif minusFish.rect.collidepoint(event.pos):
+                        if minusFish.clicked == False:
                             score -= 1
-                            minusDuck.clicked = True
+                            minusFish.clicked = True
                             scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
             elif event.type == timerEvent:
                 timer -= 1
@@ -243,7 +240,7 @@ def gameLogic():
             cell1 = random.randint(0,8)
             cell2 = random.randint(0,8)
             plusDuck.clicked = False
-            minusDuck.clicked = False
+            minusFish.clicked = False
             # If both cell1 and cell2 are equal get another random value for cell2
             if cell1 == cell2:
                 #cell1 = random.randint(0,8)
@@ -253,11 +250,11 @@ def gameLogic():
                 startTime = pygame.time.get_ticks()
                 plusDuck.rect.x = circles[cell1].x
                 plusDuck.rect.y =  circles[cell1].y
-                minusDuck.rect.x = circles[cell2].x
-                minusDuck.rect.y = circles[cell2].y
+                minusFish.rect.x = circles[cell2].x
+                minusFish.rect.y = circles[cell2].y
         # Update the sprites position on screen
         screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
-        screen.blit(minusDuck.image, [minusDuck.rect.x, minusDuck.rect.y])
+        screen.blit(minusFish.image, [minusFish.rect.x, minusFish.rect.y])
     # If the timer has run out change the gameState to "endgame"
     elif timer <= 0:
         gameState = "endgame"
