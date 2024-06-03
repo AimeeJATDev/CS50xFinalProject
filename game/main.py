@@ -54,7 +54,9 @@ gridBackgroundPath = "game/images/gridBackground.png"
 lblBackgroundPath = "game/images/lblBackground.png"
 emptyCellPath = "game/images/emptyCell.png"
 plusDuckPath = "game/images/plusDuck.png"
-minusFishPath = "game/images/minusDuck.png"
+minusFishPath = "game/images/minusFish.png"
+
+endScreenBackgroundPath = "game/images/endScreenBackground.png"
 
 # Creation of sprites using the gameSprite class
 
@@ -68,6 +70,8 @@ lblBackground = gameSprite(lblBackgroundPath, False)
 emptyCell = gameSprite(emptyCellPath, False)
 plusDuck = gameSprite(plusDuckPath, False)
 minusFish = gameSprite(minusFishPath, False)
+
+endScreenBackground =  gameSprite(endScreenBackgroundPath, False)
 
 
 # Main Function
@@ -263,21 +267,25 @@ def gameLogic():
 def endScreen():
     global screen, score
 
-    finalScreenRect = pygame.Rect(0,0, 250, 100)
+    finalScreenRect = pygame.Rect(0,0, 300, 100)
 
-    finalScreenX = (SCREEN_WIDTH / 2) - (finalScreenRect.width / 2)
+    finalScreenX = (SCREEN_WIDTH / 2) - (finalScreenRect.width/ 2)
     finalScreenY = (SCREEN_HEIGHT / 2) - (finalScreenRect.height / 2)
     exitImageX = (SCREEN_WIDTH / 2) - (exitImg.image.get_width() / 2)
+    bgImageX = (SCREEN_WIDTH / 2) - (endScreenBackground.image.get_width() / 2)
+    bgImageY = (SCREEN_HEIGHT / 2) - (endScreenBackground.image.get_height() / 2)
 
     finalScreenRect.x = finalScreenX
     finalScreenRect.y = finalScreenY
     exitImg.rect.x = exitImageX
     exitImg.rect.y = 600
+    endScreenBackground.rect.x = bgImageX
+    endScreenBackground.rect.y = bgImageY
 
     finalScreen = screen.subsurface(finalScreenRect)
 
     screen.fill("#008DDA")
-    finalScreen.fill("blue")
+    screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
 
     if score > 0:
         successText = aldrichFont.render("Congratulations!", False, (0,0,0))
@@ -292,7 +300,6 @@ def endScreen():
     centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
     finalScreen.blit(finalScoreText, [centerTextX, 50])
     screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
-        
         
     pygame.display.update()
     
