@@ -108,7 +108,7 @@ async def main():
                             score -= 1
                             minusFish.clicked = True
                             scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
-            elif event.type == timerEvent:
+            elif event.type == timerEvent and gameState == "game":
                 timer -= 1
                 timerText = aldrichFont.render("Time: " + str(timer), False, [0,0,0])
                 if timer == 0:
