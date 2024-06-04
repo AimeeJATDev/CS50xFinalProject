@@ -270,21 +270,21 @@ def endScreen():
     finalScreenRect = pygame.Rect(0,0, 300, 100)
 
     finalScreenX = (SCREEN_WIDTH / 2) - (finalScreenRect.width/ 2)
-    finalScreenY = (SCREEN_HEIGHT / 2) - (finalScreenRect.height / 2)
-    exitImageX = (SCREEN_WIDTH / 2) - (exitImg.image.get_width() / 2)
-    bgImageX = (SCREEN_WIDTH / 2) - (endScreenBackground.image.get_width() / 2)
-    bgImageY = (SCREEN_HEIGHT / 2) - (endScreenBackground.image.get_height() / 2)
+    #finalScreenY = (SCREEN_HEIGHT/ 2) - (finalScreenRect.height / 2)
+    exitImageX = (SCREEN_WIDTH / 2) - (exitImg.rect.width / 2)
+    bgImageX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
+    #bgImageY = (SCREEN_HEIGHT / 2) - (endScreenBackground.image.get_height() / 2)
 
     finalScreenRect.x = finalScreenX
-    finalScreenRect.y = finalScreenY
+    finalScreenRect.y = 260
     exitImg.rect.x = exitImageX
     exitImg.rect.y = 600
     endScreenBackground.rect.x = bgImageX
-    endScreenBackground.rect.y = bgImageY
+    endScreenBackground.rect.y = 150
 
     finalScreen = screen.subsurface(finalScreenRect)
 
-    screen.fill("#008DDA")
+    screen.fill("#1B262C")
     screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
 
     if score > 0:
