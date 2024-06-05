@@ -270,10 +270,8 @@ def endScreen():
     finalScreenRect = pygame.Rect(0,0, 300, 100)
 
     finalScreenX = (SCREEN_WIDTH / 2) - (finalScreenRect.width/ 2)
-    #finalScreenY = (SCREEN_HEIGHT/ 2) - (finalScreenRect.height / 2)
     exitImageX = (SCREEN_WIDTH / 2) - (exitImg.rect.width / 2)
     bgImageX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
-    #bgImageY = (SCREEN_HEIGHT / 2) - (endScreenBackground.image.get_height() / 2)
 
     finalScreenRect.x = finalScreenX
     finalScreenRect.y = 260
