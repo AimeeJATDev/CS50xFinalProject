@@ -167,13 +167,17 @@ def titleScreen():
 def instructionScreen():
     global screen
 
+    # Calculates the x value for the button
     titleImgX = (SCREEN_WIDTH / 2) - (titleScreenImg.image.get_width() / 2)
     
+    # Fills the screen background
     screen.fill("#1B262C")
 
+    # Initialises the x and y values for the button
     titleScreenImg.rect.x = titleImgX
     titleScreenImg.rect.y = 600
 
+    # Adds the button to the screen
     screen.blit(titleScreenImg.image, [titleScreenImg.rect.x, titleScreenImg.rect.y])
 
 
