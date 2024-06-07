@@ -57,6 +57,7 @@ plusDuckPath = "game/images/plusDuck.png"
 minusFishPath = "game/images/minusFish.png"
 
 endScreenBackgroundPath = "game/images/endScreenBackground.png"
+nextImgPath = "game/images/next_btn.png"
 
 # Creation of sprites using the gameSprite class
 
@@ -71,7 +72,8 @@ emptyCell = gameSprite(emptyCellPath, False)
 plusDuck = gameSprite(plusDuckPath, False)
 minusFish = gameSprite(minusFishPath, False)
 
-endScreenBackground =  gameSprite(endScreenBackgroundPath, False)
+endScreenBackground = gameSprite(endScreenBackgroundPath, False)
+nextImg = gameSprite(nextImgPath, False)
 
 
 # Main Function
@@ -93,7 +95,7 @@ async def main():
                         gameState = "instructions"
                     elif exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
-                elif gameState == "instructions" or gameState == "endgame":
+                elif gameState == "instructions":
                     if exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
                 # Else if gameState is game, check for collisions for each of the moving sprites in the game
@@ -108,6 +110,9 @@ async def main():
                             score -= 1
                             minusFish.clicked = True
                             scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
+                elif gameState == "endGame":
+                    if nextImg.rect.collidepoint(event.pos):
+                        gameState = "scoreInput"
             elif event.type == timerEvent and gameState == "game":
                 timer -= 1
                 timerText = aldrichFont.render("Time: " + str(timer), False, [0,0,0])
@@ -125,6 +130,8 @@ async def main():
             gameLogic()
         elif gameState == "endgame":
             endScreen()
+        elif gameState == "scoreInput":
+            scoreInput()
         elif gameState == "exit":
             pygame.quit()
             sys.exit()
@@ -274,13 +281,13 @@ def endScreen():
     finalScreenRect = pygame.Rect(0,0, 300, 100)
 
     finalScreenX = (SCREEN_WIDTH / 2) - (finalScreenRect.width/ 2)
-    exitImageX = (SCREEN_WIDTH / 2) - (exitImg.rect.width / 2)
+    nextImageX = (SCREEN_WIDTH / 2) - (nextImg.rect.width / 2)
     bgImageX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
 
     finalScreenRect.x = finalScreenX
     finalScreenRect.y = 260
-    exitImg.rect.x = exitImageX
-    exitImg.rect.y = 600
+    nextImg.rect.x = nextImageX
+    nextImg.rect.y = 600
     endScreenBackground.rect.x = bgImageX
     endScreenBackground.rect.y = 150
 
@@ -301,10 +308,14 @@ def endScreen():
     finalScoreText = aldrichFont.render("Your Score: " + str(score), False, (0,0,0))
     centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
     finalScreen.blit(finalScoreText, [centerTextX, 50])
-    screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
+    screen.blit(nextImg.image, [nextImg.rect.x, nextImg.rect.y])
         
     pygame.display.update()
-    
+
+
+def scoreInput():
+    pygame.quit()
+    sys.exit()    
 
 # Always be at bottom of file
 asyncio.run(main())
