@@ -95,7 +95,7 @@ async def main():
                         gameState = "instructions"
                     elif exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
-                elif gameState == "instructions":
+                elif gameState == "instructions" or gameState == "scoreInput":
                     if exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
                 # Else if gameState is game, check for collisions for each of the moving sprites in the game
@@ -110,7 +110,7 @@ async def main():
                             score -= 1
                             minusFish.clicked = True
                             scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
-                elif gameState == "endGame":
+                elif gameState == "endgame":
                     if nextImg.rect.collidepoint(event.pos):
                         gameState = "scoreInput"
             elif event.type == timerEvent and gameState == "game":
@@ -314,8 +314,19 @@ def endScreen():
 
 
 def scoreInput():
-    pygame.quit()
-    sys.exit()    
+    global screen, score
+
+    screen.fill("#1B262C")
+
+    username = ""
+    usernameText = aldrichFont.render("Please enter your name: " + str(username), False, (0,0,0))
+
+    exitImg.rect.x = 0
+    exitImg.rect.y = 20
+
+    screen.blit(usernameText, [0,0])
+    screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
+    
 
 # Always be at bottom of file
 asyncio.run(main())
