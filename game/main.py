@@ -27,6 +27,7 @@ cell1 = random.randint(0,8)
 cell2 = random.randint(0,8)
 startTime = pygame.time.get_ticks()
 scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
+username = ""
 
 # Timer Set Up
 timer = 20
@@ -78,7 +79,7 @@ nextImg = gameSprite(nextImgPath, False)
 
 # Main Function
 async def main():
-    global screen, clock, timer, running, timerText, score, scoreText, gameState
+    global screen, clock, timer, running, timerText, score, scoreText, gameState, username
     
     # Main loop for the game
     while running:
@@ -113,6 +114,16 @@ async def main():
                 elif gameState == "endgame":
                     if nextImg.rect.collidepoint(event.pos):
                         gameState = "scoreInput"
+            elif event.type == pygame.KEYDOWN and gameState == "scoreInput":
+                if event.key == pygame.K_RETURN:
+                    print(username)
+                elif event.key == pygame.K_BACKSPACE:
+                    username = username + "\b"
+                else:
+                    username += event.unicode
+
+
+
             elif event.type == timerEvent and gameState == "game":
                 timer -= 1
                 timerText = aldrichFont.render("Time: " + str(timer), False, [0,0,0])
@@ -317,6 +328,8 @@ def scoreInput():
     global screen, score
 
     screen.fill("#1B262C")
+
+    usernameRect = pygame.Rect(0, 0, 200, 200)
 
     username = ""
     usernameText = aldrichFont.render("Please enter your name: " + str(username), False, (0,0,0))
