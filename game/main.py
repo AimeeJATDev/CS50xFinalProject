@@ -100,7 +100,10 @@ async def main():
                         gameState = "instructions"
                     elif exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
-                elif gameState == "instructions" or gameState == "scoreInput":
+                elif gameState == "instructions":
+                    if titleScreenImg.rect.collidepoint(event.pos):
+                        gameState = "start"
+                elif gameState == "scoreInput":
                     if exitImg.rect.collidepoint(event.pos):
                         gameState = "exit"
                 # Else if gameState is game, check for collisions for each of the moving sprites in the game
@@ -125,9 +128,6 @@ async def main():
                     username = username + "\b"
                 else:
                     username += event.unicode
-
-
-
             elif event.type == timerEvent and gameState == "game":
                 timer -= 1
                 timerText = aldrichFont.render("Time: " + str(timer), False, [0,0,0])
@@ -190,7 +190,8 @@ def instructionScreen():
     global screen
 
     # Calculates the x value for the button
-    titleImgX = (SCREEN_WIDTH / 2) - (titleScreenImg.image.get_width() / 2)
+    titleImgX = (SCREEN_WIDTH / 2) - (titleScreenImg.rect.width / 2)
+    instructionImgX = (SCREEN_WIDTH / 2) - (instructionScreenImg.rect.width / 2)
     
     # Fills the screen background
     screen.fill("#1B262C")
@@ -198,8 +199,11 @@ def instructionScreen():
     # Initialises the x and y values for the button
     titleScreenImg.rect.x = titleImgX
     titleScreenImg.rect.y = 600
+    instructionScreenImg.rect.x = instructionImgX
+    instructionScreenImg.rect.y = 150
 
     # Adds the button to the screen
+    screen.blit(instructionScreenImg.image, [instructionScreenImg.rect.x, instructionScreenImg.rect.y])
     screen.blit(titleScreenImg.image, [titleScreenImg.rect.x, titleScreenImg.rect.y])
 
 
