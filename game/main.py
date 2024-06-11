@@ -51,6 +51,8 @@ instructionImgPath = "game/images/instructions_btn.png"
 exitImgPath = "game/images/exit_btn.png"
 titleScreenImgPath = "game/images/title_screen_btn.png"
 
+instructionScreenImgPath = "game/images/instructions.png"
+
 gridBackgroundPath = "game/images/gridBackground.png"
 lblBackgroundPath = "game/images/lblBackground.png"
 emptyCellPath = "game/images/emptyCell.png"
@@ -66,6 +68,8 @@ startImg = gameSprite(startImgPath, False)
 instructionImg = gameSprite(instructionImgPath, False)
 exitImg = gameSprite(exitImgPath, False)
 titleScreenImg = gameSprite(titleScreenImgPath, False)
+
+instructionScreenImg = gameSprite(instructionScreenImgPath, False)
 
 gridBackground = gameSprite(gridBackgroundPath, False)
 lblBackground = gameSprite(lblBackgroundPath, False)
