@@ -297,12 +297,15 @@ def gameLogic():
 def endScreen():
     global screen, score
 
+    # Initalise Rect - to be used for subsurface
     finalScreenRect = pygame.Rect(0,0, 300, 100)
 
+    # Calculates the x values of each component to ensure they are in the center of the screen
     finalScreenX = (SCREEN_WIDTH / 2) - (finalScreenRect.width/ 2)
     nextImageX = (SCREEN_WIDTH / 2) - (nextImg.rect.width / 2)
     bgImageX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
 
+    # Assign x and y values
     finalScreenRect.x = finalScreenX
     finalScreenRect.y = 260
     nextImg.rect.x = nextImageX
@@ -310,6 +313,7 @@ def endScreen():
     endScreenBackground.rect.x = bgImageX
     endScreenBackground.rect.y = 150
 
+    # Creates subsurface
     finalScreen = screen.subsurface(finalScreenRect)
 
     screen.fill("#1B262C")
