@@ -342,10 +342,17 @@ def scoreInput():
     usernameText = aldrichFont.render("Please enter your name", False, (0,0,0))
     usernameInput = aldrichFont.render(username, False, (0,0,0))
 
-    exitImg.rect.x = 0
-    exitImg.rect.y = 40
+    backgroundX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
+    usernameTextX = (SCREEN_WIDTH / 2) - (usernameText.get_width() / 2)
+    exitBtnX = (SCREEN_WIDTH / 2) - (exitImg.rect.width / 2)
 
-    screen.blit(usernameText, [0,0])
+    endScreenBackground.rect.x = backgroundX
+    endScreenBackground.rect.y = 150
+    exitImg.rect.x = exitBtnX
+    exitImg.rect.y = 600
+
+    screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
+    screen.blit(usernameText, [usernameTextX, 200])
     screen.blit(usernameInput, [0, 20])
     screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
     
