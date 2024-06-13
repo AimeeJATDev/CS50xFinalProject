@@ -26,7 +26,7 @@ score = 0
 cell1 = random.randint(0,8)
 cell2 = random.randint(0,8)
 startTime = pygame.time.get_ticks()
-scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
+scoreText = aldrichFont.render("Score: " + str(score), True, (0,0,0))
 username = ""
 
 # Timer Set Up
@@ -34,7 +34,7 @@ timer = 20
 timerInterval = 1000
 timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
-timerText = aldrichFont.render("Time: " + str(timer), False, [0,0,0])
+timerText = aldrichFont.render("Time: " + str(timer), True, [0,0,0])
 
 # Creation of gameSprite class
 class gameSprite(pygame.sprite.Sprite):
@@ -112,12 +112,12 @@ async def main():
                         if plusDuck.clicked == False:
                             score += 1
                             plusDuck.clicked = True
-                            scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
+                            scoreText = aldrichFont.render("Score: " + str(score), True, (0,0,0))
                     elif minusFish.rect.collidepoint(event.pos):
                         if minusFish.clicked == False:
                             score -= 1
                             minusFish.clicked = True
-                            scoreText = aldrichFont.render("Score: " + str(score), False, (0,0,0))
+                            scoreText = aldrichFont.render("Score: " + str(score), True, (0,0,0))
                 elif gameState == "endgame":
                     if nextImg.rect.collidepoint(event.pos):
                         gameState = "scoreInput"
@@ -130,7 +130,7 @@ async def main():
                     username += event.unicode
             elif event.type == timerEvent and gameState == "game":
                 timer -= 1
-                timerText = aldrichFont.render("Time: " + str(timer), False, [0,0,0])
+                timerText = aldrichFont.render("Time: " + str(timer), True, [0,0,0])
                 if timer == 0:
                     pygame.time.set_timer(timerEvent, 0)
 
@@ -320,15 +320,15 @@ def endScreen():
     screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
 
     if score > 0:
-        successText = aldrichFont.render("Congratulations!", False, (0,0,0))
+        successText = aldrichFont.render("Congratulations!", True, (0,0,0))
         centerTextX = (finalScreenRect.width / 2) - (successText.get_width() / 2)
         finalScreen.blit(successText, [centerTextX, 10])
     elif score <= 0:
-        failText = aldrichFont.render("Game Over!", False, (0,0,0))
+        failText = aldrichFont.render("Game Over!", True, (0,0,0))
         centerTextX = (finalScreenRect.width / 2) - (failText.get_width() / 2)
         finalScreen.blit(failText, [centerTextX, 10])
 
-    finalScoreText = aldrichFont.render("Your Score: " + str(score), False, (0,0,0))
+    finalScoreText = aldrichFont.render("Your Score: " + str(score), True, (0,0,0))
     centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
     finalScreen.blit(finalScoreText, [centerTextX, 50])
     screen.blit(nextImg.image, [nextImg.rect.x, nextImg.rect.y])
@@ -341,13 +341,14 @@ def scoreInput():
 
     screen.fill("#1B262C")
 
-    usernameInputRect = pygame.Rect(0, 0, 200, 200)
+    #usernameInputRect = pygame.Rect(0, 0, 200, 200)
 
-    usernameText = aldrichFont.render("Please enter your name", False, (0,0,0))
-    usernameInput = aldrichFont.render(username, False, (0,0,0))
+    usernameText = aldrichFont.render("Please enter your name:", True, (0,0,0))
+    usernameInput = aldrichFont.render(username, True, (0,0,0))
 
     backgroundX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
     usernameTextX = (SCREEN_WIDTH / 2) - (usernameText.get_width() / 2)
+    usernameInputX = (SCREEN_WIDTH / 2) - (usernameInput.get_width() / 2)
     exitBtnX = (SCREEN_WIDTH / 2) - (exitImg.rect.width / 2)
 
     endScreenBackground.rect.x = backgroundX
@@ -357,7 +358,7 @@ def scoreInput():
 
     screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
     screen.blit(usernameText, [usernameTextX, 200])
-    screen.blit(usernameInput, [0, 20])
+    screen.blit(usernameInput, [usernameInputX, 300])
     screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
     
 
