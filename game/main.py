@@ -200,7 +200,7 @@ def instructionScreen():
     titleScreenImg.rect.x = titleImgX
     titleScreenImg.rect.y = 600
     instructionScreenImg.rect.x = instructionImgX
-    instructionScreenImg.rect.y = 150
+    instructionScreenImg.rect.y = 70
 
     # Adds the button to the screen
     screen.blit(instructionScreenImg.image, [instructionScreenImg.rect.x, instructionScreenImg.rect.y])
