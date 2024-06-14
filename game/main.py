@@ -28,6 +28,7 @@ cell2 = random.randint(0,8)
 startTime = pygame.time.get_ticks()
 scoreText = aldrichFont.render("Score: " + str(score), True, (0,0,0))
 username = ""
+submitted = False
 
 # Timer Set Up
 timer = 20
@@ -83,7 +84,7 @@ nextImg = gameSprite(nextImgPath, False)
 
 # Main Function
 async def main():
-    global screen, clock, timer, running, timerText, score, scoreText, gameState, username
+    global screen, clock, timer, running, timerText, score, scoreText, gameState, username, submitted
     
     # Main loop for the game
     while running:
@@ -124,6 +125,7 @@ async def main():
             elif event.type == pygame.KEYDOWN and gameState == "scoreInput":
                 if event.key == pygame.K_RETURN:
                     print(username)
+                    submitted = True
                 elif event.key == pygame.K_BACKSPACE:
                     username = username + "\b"
                 else:
@@ -341,7 +343,8 @@ def scoreInput():
 
     screen.fill("#1B262C")
 
-    #usernameInputRect = pygame.Rect(0, 0, 200, 200)
+    userInputRect = pygame.Rect(0, 0, 200, 200)
+    userInputScreen = screen.subsurface(userInputRect)
 
     usernameText = aldrichFont.render("Please enter your name:", True, (0,0,0))
     usernameInput = aldrichFont.render(username, True, (0,0,0))
@@ -359,7 +362,9 @@ def scoreInput():
     screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
     screen.blit(usernameText, [usernameTextX, 200])
     screen.blit(usernameInput, [usernameInputX, 300])
-    screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
+
+    if (submitted == True):
+        screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
     
 
 # Always be at bottom of file
