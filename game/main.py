@@ -344,24 +344,29 @@ def scoreInput():
     screen.fill("#1B262C")
 
     userInputRect = pygame.Rect(0, 0, 200, 200)
-    userInputScreen = screen.subsurface(userInputRect)
 
-    usernameText = aldrichFont.render("Please enter your name:", True, (0,0,0))
+    usernameText1 = aldrichFont.render("Please enter your name", True, (0,0,0))
+    usernameText2 = aldrichFont.render("and press enter:", True, (0,0,0))
     usernameInput = aldrichFont.render(username, True, (0,0,0))
 
     backgroundX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
-    usernameTextX = (SCREEN_WIDTH / 2) - (usernameText.get_width() / 2)
-    usernameInputX = (SCREEN_WIDTH / 2) - (usernameInput.get_width() / 2)
+    usernameTextX = (SCREEN_WIDTH / 2) - (usernameText1.get_width() / 2)
+    userInputX = (SCREEN_WIDTH / 2) - (userInputRect.width / 2)
     exitBtnX = (SCREEN_WIDTH / 2) - (exitImg.rect.width / 2)
 
     endScreenBackground.rect.x = backgroundX
     endScreenBackground.rect.y = 150
+    userInputRect.x = userInputX
+    userInputRect.y = 300
     exitImg.rect.x = exitBtnX
     exitImg.rect.y = 600
 
+    userInputScreen = screen.subsurface(userInputRect)
+
     screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
-    screen.blit(usernameText, [usernameTextX, 200])
-    screen.blit(usernameInput, [usernameInputX, 300])
+    screen.blit(usernameText1, [usernameTextX, 200])
+    screen.blit(usernameText2, [usernameTextX, 230])
+    userInputScreen.blit(usernameInput, [0, 0])
 
     if (submitted == True):
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
