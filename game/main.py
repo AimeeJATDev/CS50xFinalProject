@@ -121,10 +121,14 @@ async def main():
                             scoreText = aldrichFont.render("Score: " + str(score), True, (0,0,0))
                 elif gameState == "endgame":
                     if nextImg.rect.collidepoint(event.pos):
-                        gameState = "scoreInput"
+                        if score > 0:
+                            gameState = "scoreInput"
+                        else:
+                            gameState = "exit"
             elif event.type == pygame.KEYDOWN and gameState == "scoreInput":
                 if event.key == pygame.K_RETURN:
                     print(username)
+                    username = ""
                     submitted = True
                 elif event.key == pygame.K_BACKSPACE:
                     username = username + "\b"
