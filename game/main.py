@@ -131,7 +131,7 @@ async def main():
                     username = ""
                     submitted = True
                 elif event.key == pygame.K_BACKSPACE:
-                    username = username + "\b"
+                    username = username[:-1]
                 else:
                     username += event.unicode
             elif event.type == timerEvent and gameState == "game":
