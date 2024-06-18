@@ -133,7 +133,8 @@ async def main():
                 elif event.key == pygame.K_BACKSPACE:
                     username = username[:-1]
                 else:
-                    username += event.unicode
+                    if (len(username)) < 11:
+                        username += event.unicode
             elif event.type == timerEvent and gameState == "game":
                 timer -= 1
                 timerText = aldrichFont.render("Time: " + str(timer), True, [0,0,0])
