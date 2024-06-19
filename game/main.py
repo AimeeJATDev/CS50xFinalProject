@@ -310,14 +310,16 @@ def endScreen():
 
     # Calculates the x values of each component to ensure they are in the center of the screen
     finalScreenX = (SCREEN_WIDTH / 2) - (finalScreenRect.width/ 2)
-    nextImageX = (SCREEN_WIDTH / 2) - (nextImg.rect.width / 2)
+    btnImageX = (SCREEN_WIDTH / 2) - (nextImg.rect.width / 2)
     bgImageX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
 
     # Assign x and y values
     finalScreenRect.x = finalScreenX
     finalScreenRect.y = 260
-    nextImg.rect.x = nextImageX
+    nextImg.rect.x = btnImageX
     nextImg.rect.y = 600
+    exitImg.rect.x = btnImageX
+    exitImg.rect.y = 600
     endScreenBackground.rect.x = bgImageX
     endScreenBackground.rect.y = 150
 
@@ -331,15 +333,16 @@ def endScreen():
         successText = aldrichFont.render("Congratulations!", True, (0,0,0))
         centerTextX = (finalScreenRect.width / 2) - (successText.get_width() / 2)
         finalScreen.blit(successText, [centerTextX, 10])
+        screen.blit(nextImg.image, [nextImg.rect.x, nextImg.rect.y])
     elif score <= 0:
         failText = aldrichFont.render("Game Over!", True, (0,0,0))
         centerTextX = (finalScreenRect.width / 2) - (failText.get_width() / 2)
         finalScreen.blit(failText, [centerTextX, 10])
+        screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
 
     finalScoreText = aldrichFont.render("Your Score: " + str(score), True, (0,0,0))
     centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
     finalScreen.blit(finalScoreText, [centerTextX, 50])
-    screen.blit(nextImg.image, [nextImg.rect.x, nextImg.rect.y])
         
     pygame.display.update()
 
