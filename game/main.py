@@ -126,15 +126,16 @@ async def main():
                         else:
                             gameState = "exit"
             elif event.type == pygame.KEYDOWN and gameState == "scoreInput":
-                if event.key == pygame.K_RETURN:
-                    print(username)
-                    username = ""
-                    submitted = True
-                elif event.key == pygame.K_BACKSPACE:
-                    username = username[:-1]
-                else:
-                    if (len(username)) < 11:
-                        username += event.unicode
+                if submitted == False:
+                    if event.key == pygame.K_RETURN:
+                        print(username)
+                        username = ""
+                        submitted = True
+                    elif event.key == pygame.K_BACKSPACE:
+                        username = username[:-1]
+                    else:
+                        if (len(username)) < 11:
+                            username += event.unicode
             elif event.type == timerEvent and gameState == "game":
                 timer -= 1
                 timerText = aldrichFont.render("Time: " + str(timer), True, [0,0,0])
@@ -376,6 +377,7 @@ def scoreInput():
     userInputScreen.blit(usernameInput, [0, 0])
 
     if (submitted == True):
+        userInputScreen.fill("#3282B8")
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
     
 
