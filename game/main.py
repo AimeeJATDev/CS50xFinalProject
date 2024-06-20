@@ -63,6 +63,8 @@ minusFishPath = "game/images/minusFish.png"
 endScreenBackgroundPath = "game/images/endScreenBackground.png"
 nextImgPath = "game/images/next_btn.png"
 
+inputFieldPath = "game/images/inputField.png"
+
 # Creation of sprites using the gameSprite class
 
 startImg = gameSprite(startImgPath, False)
@@ -80,6 +82,8 @@ minusFish = gameSprite(minusFishPath, False)
 
 endScreenBackground = gameSprite(endScreenBackgroundPath, False)
 nextImg = gameSprite(nextImgPath, False)
+
+inputFieldImg = gameSprite(inputFieldPath, False)
 
 
 # Main Function
@@ -362,6 +366,7 @@ def scoreInput():
     backgroundX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
     usernameTextX = (SCREEN_WIDTH / 2) - (usernameText1.get_width() / 2)
     userInputX = (SCREEN_WIDTH / 2) - (userInputRect.width / 2)
+    inputImgX = (SCREEN_WIDTH / 2) - (inputFieldImg.rect.width / 2)
     submitMsgX = (SCREEN_WIDTH / 2) - (submitMsg.get_width() / 2)
     exitBtnX = (SCREEN_WIDTH / 2) - (exitImg.rect.width / 2)
 
@@ -369,6 +374,8 @@ def scoreInput():
     endScreenBackground.rect.y = 150
     userInputRect.x = userInputX
     userInputRect.y = 300
+    inputFieldImg.rect.x = inputImgX
+    inputFieldImg.rect.y = 300
     exitImg.rect.x = exitBtnX
     exitImg.rect.y = 600
 
@@ -379,6 +386,7 @@ def scoreInput():
     screen.blit(usernameText2, [usernameTextX, 230])
     
     userInputScreen.fill("white")
+    screen.blit(inputFieldImg.image, [inputFieldImg.rect.x, inputFieldImg.rect.y])
     userInputScreen.blit(usernameInput, [5, 8])
 
     if (submitted == True):
