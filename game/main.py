@@ -352,15 +352,17 @@ def scoreInput():
 
     screen.fill("#1B262C")
 
-    userInputRect = pygame.Rect(0, 0, 200, 30)
+    userInputRect = pygame.Rect(0, 0, 250, 40)
 
     usernameText1 = aldrichFont.render("Please enter your name", True, (0,0,0))
     usernameText2 = aldrichFont.render("and press enter:", True, (0,0,0))
     usernameInput = aldrichFont.render(username, True, (0,0,0))
+    submitMsg = aldrichFont.render("Username submitted", True, (0,0,0))
 
     backgroundX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
     usernameTextX = (SCREEN_WIDTH / 2) - (usernameText1.get_width() / 2)
     userInputX = (SCREEN_WIDTH / 2) - (userInputRect.width / 2)
+    submitMsgX = (SCREEN_WIDTH / 2) - (submitMsg.get_width() / 2)
     exitBtnX = (SCREEN_WIDTH / 2) - (exitImg.rect.width / 2)
 
     endScreenBackground.rect.x = backgroundX
@@ -377,10 +379,11 @@ def scoreInput():
     screen.blit(usernameText2, [usernameTextX, 230])
     
     userInputScreen.fill("white")
-    userInputScreen.blit(usernameInput, [0, 0])
+    userInputScreen.blit(usernameInput, [5, 8])
 
     if (submitted == True):
         userInputScreen.fill("#3282B8")
+        screen.blit(submitMsg, [submitMsgX, 300])
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
     
 
