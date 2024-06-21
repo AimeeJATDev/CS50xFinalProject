@@ -6,10 +6,13 @@ import sys
 import pygame
 import asyncio
 import random
+import sqlite3
 
 #PyGame Initialisation
 pygame.init()
 pygame.font.init()
+
+db = sqlite3.connect("highscores.db")
 
 # Variable Declaration
 SCREEN_WIDTH = 1700
@@ -393,6 +396,8 @@ def scoreInput():
         screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
         screen.blit(submitMsg, [submitMsgX, 290])
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
+        db.execute("INSERT INTO scores (name, score) VALUES (?,?)", (username, score))
+        db.commit()
     
 
 # Always be at bottom of file
