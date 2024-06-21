@@ -387,11 +387,11 @@ def scoreInput():
     
     userInputScreen.fill("white")
     screen.blit(inputFieldImg.image, [inputFieldImg.rect.x, inputFieldImg.rect.y])
-    userInputScreen.blit(usernameInput, [5, 8])
+    userInputScreen.blit(usernameInput, [5, 12])
 
     if (submitted == True):
-        userInputScreen.fill("#3282B8")
-        screen.blit(submitMsg, [submitMsgX, 300])
+        screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
+        screen.blit(submitMsg, [submitMsgX, 290])
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
     
 
