@@ -135,8 +135,6 @@ async def main():
             elif event.type == pygame.KEYDOWN and gameState == "scoreInput":
                 if submitted == False:
                     if event.key == pygame.K_RETURN:
-                        print(username)
-                        username = ""
                         submitted = True
                     elif event.key == pygame.K_BACKSPACE:
                         username = username[:-1]
