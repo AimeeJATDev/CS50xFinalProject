@@ -160,6 +160,8 @@ async def main():
             endScreen()
         elif gameState == "scoreInput":
             scoreInput()
+        elif gameState == "db":
+            addToDB()
         elif gameState == "exit":
             pygame.quit()
             sys.exit()
@@ -353,7 +355,7 @@ def endScreen():
 
 
 def scoreInput():
-    global screen, score
+    global screen, score, gameState
 
     screen.fill("#1B262C")
 
@@ -394,8 +396,14 @@ def scoreInput():
         screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
         screen.blit(submitMsg, [submitMsgX, 290])
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
-        db.execute("INSERT INTO scores (name, score) VALUES (?,?)", (username, score))
-        db.commit()
+        gameState = "db"
+
+
+def addToDB():
+    global gameState
+    db.execute("INSERT INTO scores (name, score) VALUES (?,?)", (username, score))
+    db.commit()
+    gameState = "scoreInput"
     
 
 # Always be at bottom of file
