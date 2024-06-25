@@ -1,5 +1,4 @@
 # Game Colour Palette: https://colorhunt.co/palette/1b262c0f4c753282b8bbe1fa
-
 # Import Libraries
 import os
 import sys
@@ -69,7 +68,6 @@ nextImgPath = "game/images/next_btn.png"
 inputFieldPath = "game/images/inputField.png"
 
 # Creation of sprites using the gameSprite class
-
 startImg = gameSprite(startImgPath, False)
 instructionImg = gameSprite(instructionImgPath, False)
 exitImg = gameSprite(exitImgPath, False)
@@ -162,8 +160,6 @@ async def main():
             endScreen()
         elif gameState == "scoreInput":
             scoreInput()
-        elif gameState == "db":
-            addToDB()
         elif gameState == "exit":
             pygame.quit()
             sys.exit()
@@ -294,7 +290,6 @@ def gameLogic():
             minusFish.clicked = False
             # If both cell1 and cell2 are equal get another random value for cell2
             if cell1 == cell2:
-                #cell1 = random.randint(0,8)
                 cell2 = random.randint(0,8)
             # If both cell1 and cell two show a different value change the x and y values of the sprites and reset the startTime variable
             else:
@@ -398,15 +393,8 @@ def scoreInput():
         screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
         screen.blit(submitMsg, [submitMsgX, 290])
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
-        #gameState = "db"
+        
 
-
-def addToDB():
-    global gameState
-    db.execute("INSERT INTO scores (name, score) VALUES (?,?)", (username, score))
-    db.commit()
-    gameState = "scoreInput"
-    
 
 # Always be at bottom of file
 asyncio.run(main())
