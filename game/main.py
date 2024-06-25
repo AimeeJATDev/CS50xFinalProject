@@ -136,6 +136,8 @@ async def main():
                 if submitted == False:
                     if event.key == pygame.K_RETURN:
                         submitted = True
+                        db.execute("INSERT INTO scores (name, score) VALUES (?,?)", (username, score))
+                        db.commit()
                     elif event.key == pygame.K_BACKSPACE:
                         username = username[:-1]
                     else:
@@ -396,7 +398,7 @@ def scoreInput():
         screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
         screen.blit(submitMsg, [submitMsgX, 290])
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
-        gameState = "db"
+        #gameState = "db"
 
 
 def addToDB():
