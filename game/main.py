@@ -11,6 +11,7 @@ import sqlite3
 pygame.init()
 pygame.font.init()
 
+# Connect to db
 db = sqlite3.connect("highscores.db")
 
 # Variable Declaration
@@ -33,7 +34,7 @@ username = ""
 submitted = False
 
 # Timer Set Up
-timer = 20
+timer = 30
 timerInterval = 1000
 timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
@@ -298,9 +299,11 @@ def gameLogic():
                 plusDuck.rect.y =  circles[cell1].y
                 minusFish.rect.x = circles[cell2].x
                 minusFish.rect.y = circles[cell2].y
+                
         # Update the sprites position on screen
         screen.blit(plusDuck.image, [plusDuck.rect.x, plusDuck.rect.y])
         screen.blit(minusFish.image, [minusFish.rect.x, minusFish.rect.y])
+
     # If the timer has run out change the gameState to "endgame"
     elif timer <= 0:
         gameState = "endgame"
@@ -394,7 +397,6 @@ def scoreInput():
         screen.blit(submitMsg, [submitMsgX, 290])
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
         
-
 
 # Always be at bottom of file
 asyncio.run(main())
