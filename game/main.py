@@ -333,20 +333,24 @@ def endScreen():
     # Creates subsurface
     finalScreen = screen.subsurface(finalScreenRect)
 
+    # Change colour of background and add background image to screen
     screen.fill("#1B262C")
     screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
 
+    # If the score is greater than 0 display the success message
     if score > 0:
         successText = aldrichFont.render("Congratulations!", True, (0,0,0))
         centerTextX = (finalScreenRect.width / 2) - (successText.get_width() / 2)
         finalScreen.blit(successText, [centerTextX, 10])
         screen.blit(nextImg.image, [nextImg.rect.x, nextImg.rect.y])
+    # If the score is 0 or less display the failure message
     elif score <= 0:
         failText = aldrichFont.render("Game Over!", True, (0,0,0))
         centerTextX = (finalScreenRect.width / 2) - (failText.get_width() / 2)
         finalScreen.blit(failText, [centerTextX, 10])
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
 
+    # Display the score
     finalScoreText = aldrichFont.render("Your Score: " + str(score), True, (0,0,0))
     centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
     finalScreen.blit(finalScoreText, [centerTextX, 50])
