@@ -355,21 +355,25 @@ def endScreen():
     centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
     finalScreen.blit(finalScoreText, [centerTextX, 50])
         
-    pygame.display.update()
+    #pygame.display.update()
 
 
 def scoreInput():
     global screen, score, gameState
 
+    # Fills screem with background colour
     screen.fill("#1B262C")
 
+    # Creates Rect for user input field
     userInputRect = pygame.Rect(0, 0, 250, 40)
 
+    # Define text to be rendered
     usernameText1 = aldrichFont.render("Please enter your name", True, (0,0,0))
     usernameText2 = aldrichFont.render("and press enter:", True, (0,0,0))
     usernameInput = aldrichFont.render(username, True, (0,0,0))
     submitMsg = aldrichFont.render("Username submitted", True, (0,0,0))
 
+    # Calculate center x values for all page components
     backgroundX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
     usernameTextX = (SCREEN_WIDTH / 2) - (usernameText1.get_width() / 2)
     userInputX = (SCREEN_WIDTH / 2) - (userInputRect.width / 2)
