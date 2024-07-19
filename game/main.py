@@ -373,7 +373,7 @@ def scoreInput():
     usernameInput = aldrichFont.render(username, True, (0,0,0))
     submitMsg = aldrichFont.render("Username submitted", True, (0,0,0))
 
-    # Calculate center x values for all page components
+    # Calculate center x values for all screen components
     backgroundX = (SCREEN_WIDTH / 2) - (endScreenBackground.rect.width / 2)
     usernameTextX = (SCREEN_WIDTH / 2) - (usernameText1.get_width() / 2)
     userInputX = (SCREEN_WIDTH / 2) - (userInputRect.width / 2)
@@ -381,6 +381,7 @@ def scoreInput():
     submitMsgX = (SCREEN_WIDTH / 2) - (submitMsg.get_width() / 2)
     exitBtnX = (SCREEN_WIDTH / 2) - (exitImg.rect.width / 2)
 
+    # Assign x and y values to screen components
     endScreenBackground.rect.x = backgroundX
     endScreenBackground.rect.y = 150
     userInputRect.x = userInputX
@@ -390,16 +391,18 @@ def scoreInput():
     exitImg.rect.x = exitBtnX
     exitImg.rect.y = 600
 
+    # Creates a subsurface for the user input
     userInputScreen = screen.subsurface(userInputRect)
     
+    # Adds components to the screen
     screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
     screen.blit(usernameText1, [usernameTextX, 200])
     screen.blit(usernameText2, [usernameTextX, 230])
-    
     userInputScreen.fill("white")
     screen.blit(inputFieldImg.image, [inputFieldImg.rect.x, inputFieldImg.rect.y])
     userInputScreen.blit(usernameInput, [5, 12])
 
+    # Components added to screen after the username has been submitted
     if (submitted == True):
         screen.blit(endScreenBackground.image, [endScreenBackground.rect.x, endScreenBackground.rect.y])
         screen.blit(submitMsg, [submitMsgX, 290])
