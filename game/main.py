@@ -54,18 +54,14 @@ startImgPath = "game/images/start_btn.png"
 instructionImgPath = "game/images/instructions_btn.png"
 exitImgPath = "game/images/exit_btn.png"
 titleScreenImgPath = "game/images/title_screen_btn.png"
-
 instructionScreenImgPath = "game/images/instructions.png"
-
 gridBackgroundPath = "game/images/gridBackground.png"
 lblBackgroundPath = "game/images/lblBackground.png"
 emptyCellPath = "game/images/emptyCell.png"
 plusDuckPath = "game/images/plusDuck.png"
 minusFishPath = "game/images/minusFish.png"
-
 endScreenBackgroundPath = "game/images/endScreenBackground.png"
 nextImgPath = "game/images/next_btn.png"
-
 inputFieldPath = "game/images/inputField.png"
 
 # Creation of sprites using the gameSprite class
@@ -73,18 +69,14 @@ startImg = gameSprite(startImgPath, False)
 instructionImg = gameSprite(instructionImgPath, False)
 exitImg = gameSprite(exitImgPath, False)
 titleScreenImg = gameSprite(titleScreenImgPath, False)
-
 instructionScreenImg = gameSprite(instructionScreenImgPath, False)
-
 gridBackground = gameSprite(gridBackgroundPath, False)
 lblBackground = gameSprite(lblBackgroundPath, False)
 emptyCell = gameSprite(emptyCellPath, False)
 plusDuck = gameSprite(plusDuckPath, False)
 minusFish = gameSprite(minusFishPath, False)
-
 endScreenBackground = gameSprite(endScreenBackgroundPath, False)
 nextImg = gameSprite(nextImgPath, False)
-
 inputFieldImg = gameSprite(inputFieldPath, False)
 
 
@@ -195,9 +187,6 @@ def titleScreen():
     screen.blit(startImg.image, [startImg.rect.x, startImg.rect.y])
     screen.blit(instructionImg.image, [instructionImg.rect.x, instructionImg.rect.y])
     screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
-      
-    # Update screen
-    pygame.display.update()
 
 
 def instructionScreen():
@@ -228,16 +217,17 @@ def drawGrid():
     # Declare local variables
     rect_size = 150
     circle_size = 60
+
     # Calculate where the x and y values of the grid so it can be centered on the screen
     rect_x = (SCREEN_WIDTH / 2) - ((rect_size * 3) / 2)
     rect_y = (SCREEN_HEIGHT / 2) - ((rect_size * 3) / 2)
 
+    # Assign x and y values to the gridBackground
     gridBackground.rect.x = rect_x
     gridBackground.rect.y = rect_y
 
     # Fill the screen with a white colour
     screen.fill("#3282B8")
-
     screen.blit(gridBackground.image, [gridBackground.rect.x, gridBackground.rect.y])
             
     for i in range(3):
@@ -264,7 +254,6 @@ def drawGrid():
     # Changes gameState variable to "game"
     gameState = "game"
 
-    # Updates display
     pygame.display.update()
 
 
@@ -354,8 +343,6 @@ def endScreen():
     finalScoreText = aldrichFont.render("Your Score: " + str(score), True, (0,0,0))
     centerTextX = (finalScreenRect.width / 2) - (finalScoreText.get_width() / 2)
     finalScreen.blit(finalScoreText, [centerTextX, 50])
-        
-    #pygame.display.update()
 
 
 def scoreInput():
@@ -409,6 +396,6 @@ def scoreInput():
         screen.blit(exitImg.image, [exitImg.rect.x, exitImg.rect.y])
         
 
-# Always be at bottom of file
+# Run main() function
 asyncio.run(main())
 
