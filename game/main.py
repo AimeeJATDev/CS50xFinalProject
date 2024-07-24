@@ -48,21 +48,20 @@ class gameSprite(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()
             self.clicked = clicked
 
-# TODO: Remove game/ from path before packaging with pygbag
 # Image paths
-startImgPath = "game/images/start_btn.png"
-instructionImgPath = "game/images/instructions_btn.png"
-exitImgPath = "game/images/exit_btn.png"
-titleScreenImgPath = "game/images/title_screen_btn.png"
-instructionScreenImgPath = "game/images/instructions.png"
-gridBackgroundPath = "game/images/gridBackground.png"
-lblBackgroundPath = "game/images/lblBackground.png"
-emptyCellPath = "game/images/emptyCell.png"
-plusDuckPath = "game/images/plusDuck.png"
-minusFishPath = "game/images/minusFish.png"
-endScreenBackgroundPath = "game/images/endScreenBackground.png"
-nextImgPath = "game/images/next_btn.png"
-inputFieldPath = "game/images/inputField.png"
+startImgPath = "images/start_btn.png"
+instructionImgPath = "images/instructions_btn.png"
+exitImgPath = "images/exit_btn.png"
+titleScreenImgPath = "images/title_screen_btn.png"
+instructionScreenImgPath = "images/instructions.png"
+gridBackgroundPath = "images/gridBackground.png"
+lblBackgroundPath = "images/lblBackground.png"
+emptyCellPath = "images/emptyCell.png"
+plusDuckPath = "images/plusDuck.png"
+minusFishPath = "images/minusFish.png"
+endScreenBackgroundPath = "images/endScreenBackground.png"
+nextImgPath = "images/next_btn.png"
+inputFieldPath = "images/inputField.png"
 
 # Creation of sprites using the gameSprite class
 startImg = gameSprite(startImgPath, False)
