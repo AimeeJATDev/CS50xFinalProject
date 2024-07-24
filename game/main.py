@@ -12,7 +12,9 @@ pygame.init()
 pygame.font.init()
 
 # Connect to db
-db = sqlite3.connect("highscores.db")
+baseDir = os.path.dirname(os.path.abspath(__file__))
+dbPath = os.path.join(baseDir, "highscores.db")
+db = sqlite3.connect(dbPath)
 
 # Variable Declaration
 SCREEN_WIDTH = 1700
@@ -20,7 +22,7 @@ SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 caption = pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
-aldrichFont = pygame.font.Font("game/fonts/aldrich/Aldrich-Regular.ttf", 30)
+aldrichFont = pygame.font.Font("fonts/aldrich/Aldrich-Regular.ttf", 30)
 running = True
 gameState = "start"
 cells = []
