@@ -16,7 +16,7 @@ baseDir = os.path.dirname(os.path.abspath(__file__))
 dbPath = os.path.join(baseDir, "highscores.db")
 db = sqlite3.connect(dbPath)
 
-# Variable Declaration
+# Global Variable Declaration
 SCREEN_WIDTH = 1700
 SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
