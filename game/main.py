@@ -155,6 +155,7 @@ async def main():
         elif gameState == "scoreInput":
             scoreInput()
         elif gameState == "exit":
+            screen.fill("black")
             pygame.quit()
             sys.exit()
     
