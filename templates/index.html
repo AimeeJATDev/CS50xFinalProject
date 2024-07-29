@@ -24,7 +24,16 @@
                             <td>Score</td>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+
+                    {% for score in highscores %}
+                        <tbody>
+                            <tr>
+                                <td>{{ score.id }}</td>
+                                <td>{{ score.name }}</td>
+                                <td>{{ score.score }}</td>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
                 </table>
             </div>
         </main>  
