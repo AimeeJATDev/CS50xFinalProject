@@ -3,8 +3,8 @@ import sqlite3
 
 from flask import Flask, redirect, render_template
 
-app = Flask(__name__)
-db = sqlite3.connect("game/highscores.db", check_same_thread=False)
+app = Flask(__name__, static_folder="static")
+db = sqlite3.connect("static/game/highscores.db", check_same_thread=False)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
