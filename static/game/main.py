@@ -15,6 +15,10 @@ pygame.font.init()
 baseDir = os.path.dirname(os.path.abspath(__file__))
 dbPath = os.path.join(baseDir, "highscores.db")
 db = sqlite3.connect(dbPath)
+cursor = db.cursor()
+
+
+print(dbPath)
 
 # Global Variable Declaration
 SCREEN_WIDTH = 1700
@@ -36,7 +40,7 @@ username = ""
 submitted = False
 
 # Timer Set Up
-timer = 30
+timer = 10
 timerInterval = 1000
 timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
@@ -128,8 +132,14 @@ async def main():
                 if submitted == False:
                     if event.key == pygame.K_RETURN:
                         submitted = True
-                        db.execute("INSERT INTO scores (name, score) VALUES (?,?)", (username, score))
+                        cursor.execute('''INSERT INTO scores (name, score) VALUES (?,?)''', (username, score))
                         db.commit()
+                        print("Data Inserted in the table: ") 
+                        data=cursor.execute('''SELECT * FROM scores''') 
+                        for row in data: 
+                            print(row) 
+                        db.close()
+                        print(username,score)
                     elif event.key == pygame.K_BACKSPACE:
                         username = username[:-1]
                     else:
