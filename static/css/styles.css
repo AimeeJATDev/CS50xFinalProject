@@ -1,3 +1,9 @@
+/* Game Colour Palette: https://colorhunt.co/palette/1b262c0f4c753282b8bbe1fa */
+
+body {
+    background-color: #1B262C !important;
+    color: white !important;
+}
 
 #title-div {
     width: 100%;
