@@ -16,9 +16,11 @@ baseDir = os.path.dirname(os.path.abspath(__file__))
 dbPath = os.path.join(baseDir, "highscores.db")
 db = sqlite3.connect(dbPath)
 cursor = db.cursor()
-
-
-print(dbPath)
+cursor.execute("INSERT INTO scores (name, score) VALUES ('Test', 10)")
+data=cursor.execute('''SELECT * FROM scores''') 
+for row in data: 
+    print(row) 
+db.commit()
 
 # Global Variable Declaration
 SCREEN_WIDTH = 1700
@@ -26,7 +28,7 @@ SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 caption = pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
-aldrichFont = pygame.font.Font("fonts/aldrich/Aldrich-Regular.ttf", 30)
+aldrichFont = pygame.font.Font("static/game/fonts/aldrich/Aldrich-Regular.ttf", 30)
 running = True
 gameState = "start"
 cells = []
@@ -55,19 +57,19 @@ class gameSprite(pygame.sprite.Sprite):
             self.clicked = clicked
 
 # Image paths
-startImgPath = "images/start_btn.png"
-instructionImgPath = "images/instructions_btn.png"
-exitImgPath = "images/exit_btn.png"
-titleScreenImgPath = "images/title_screen_btn.png"
-instructionScreenImgPath = "images/instructions.png"
-gridBackgroundPath = "images/gridBackground.png"
-lblBackgroundPath = "images/lblBackground.png"
-emptyCellPath = "images/emptyCell.png"
-plusDuckPath = "images/plusDuck.png"
-minusFishPath = "images/minusFish.png"
-endScreenBackgroundPath = "images/endScreenBackground.png"
-nextImgPath = "images/next_btn.png"
-inputFieldPath = "images/inputField.png"
+startImgPath = "static/game/images/start_btn.png"
+instructionImgPath = "static/game/images/instructions_btn.png"
+exitImgPath = "static/game/images/exit_btn.png"
+titleScreenImgPath = "static/game/images/title_screen_btn.png"
+instructionScreenImgPath = "static/game/images/instructions.png"
+gridBackgroundPath = "static/game/images/gridBackground.png"
+lblBackgroundPath = "static/game/images/lblBackground.png"
+emptyCellPath = "static/game/images/emptyCell.png"
+plusDuckPath = "static/game/images/plusDuck.png"
+minusFishPath = "static/game/images/minusFish.png"
+endScreenBackgroundPath = "static/game/images/endScreenBackground.png"
+nextImgPath = "static/game/images/next_btn.png"
+inputFieldPath = "static/game/images/inputField.png"
 
 # Creation of sprites using the gameSprite class
 startImg = gameSprite(startImgPath, False)
