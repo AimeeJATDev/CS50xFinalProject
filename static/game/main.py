@@ -6,10 +6,12 @@ import pygame
 import asyncio
 import random
 import sqlite3
+import settings
 
 #PyGame Initialisation
 pygame.init()
 pygame.font.init()
+settings.init()
 
 # Connect to db
 baseDir = os.path.dirname(os.path.abspath(__file__))
@@ -129,9 +131,8 @@ async def main():
                 if submitted == False:
                     if event.key == pygame.K_RETURN:
                         submitted = True
-                        cursor.execute("INSERT INTO scores (name, score) VALUES (?,?)", (username, score))
-                        db.commit()
-                        print(username,score)
+                        settings.userData.append([username, score])
+                        print(settings.userData)
                     elif event.key == pygame.K_BACKSPACE:
                         username = username[:-1]
                     else:
