@@ -1,3 +1,4 @@
+
 # Game Colour Palette: https://colorhunt.co/palette/1b262c0f4c753282b8bbe1fa
 # Import Libraries
 import os
@@ -133,6 +134,8 @@ async def main():
                         submitted = True
                         settings.userData.append([username, score])
                         print(settings.userData)
+                        with open("updateDB.py") as file:
+                            exec(file.read())
                     elif event.key == pygame.K_BACKSPACE:
                         username = username[:-1]
                     else:
@@ -159,11 +162,6 @@ async def main():
             scoreInput()
         elif gameState == "exit":
             screen.fill("black")
-            data=cursor.execute('''SELECT * FROM scores''') 
-            for row in data: 
-                print(row) 
-            db.commit()
-            pygame.time.wait(2)
             pygame.quit()
             sys.exit()
     
