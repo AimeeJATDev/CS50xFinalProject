@@ -6,7 +6,8 @@ import sys
 import pygame
 import asyncio
 import random
-import sqlite3
+#import sqlite3
+import sqlite3_py
 
 #PyGame Initialisation
 pygame.init()
@@ -15,7 +16,7 @@ pygame.font.init()
 # Connect to db
 baseDir = os.path.dirname(os.path.abspath(__file__))
 dbPath = os.path.join(baseDir, "./highscores.db")
-db = sqlite3.connect("./highscores.db")
+db = sqlite3_py.connect("./highscores.db")
 cursor = db.cursor()
 
 # Global Variable Declaration
