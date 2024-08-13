@@ -1,4 +1,3 @@
-
 # Game Colour Palette: https://colorhunt.co/palette/1b262c0f4c753282b8bbe1fa
 # Import Libraries
 import os
@@ -6,8 +5,7 @@ import sys
 import pygame
 import asyncio
 import random
-#import sqlite3
-import sqlite3_py
+import sqlite3
 
 #PyGame Initialisation
 pygame.init()
@@ -16,7 +14,8 @@ pygame.font.init()
 # Connect to db
 baseDir = os.path.dirname(os.path.abspath(__file__))
 dbPath = os.path.join(baseDir, "./highscores.db")
-db = sqlite3_py.connect("./highscores.db")
+db = sqlite3.connect("./highscores.db")
+db.isolation_level = None
 cursor = db.cursor()
 
 # Global Variable Declaration
@@ -25,6 +24,7 @@ SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 caption = pygame.display.set_caption("Whack-a-Duck")
 clock = pygame.time.Clock()
+
 aldrichFont = pygame.font.Font("fonts/aldrich/Aldrich-Regular.ttf", 30)
 running = True
 gameState = "start"
@@ -132,13 +132,7 @@ async def main():
                     if event.key == pygame.K_RETURN:
                         submitted = True
                         cursor.execute("INSERT INTO scores (name, score) VALUES (?,?);", (username, score))
-                        
                         db.commit()
-                        db.close()
-                        db1 = sqlite3.connect("highscores.db")
-                        data = db1.execute("SELECT * FROM scores;")
-                        for i in data:
-                            print(i)
                     elif event.key == pygame.K_BACKSPACE:
                         username = username[:-1]
                     else:
