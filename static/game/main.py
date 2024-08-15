@@ -14,8 +14,7 @@ pygame.font.init()
 # Connect to db
 baseDir = os.path.dirname(os.path.abspath(__file__))
 dbPath = os.path.join(baseDir, "./highscores.db")
-db = sqlite3.connect("./highscores.db")
-db.isolation_level = None
+db = sqlite3.connect(dbPath)
 cursor = db.cursor()
 
 # Global Variable Declaration
@@ -39,7 +38,7 @@ username = ""
 submitted = False
 
 # Timer Set Up
-timer = 10
+timer = 30
 timerInterval = 1000
 timerEvent = pygame.USEREVENT + 1
 pygame.time.set_timer(timerEvent, timerInterval)
