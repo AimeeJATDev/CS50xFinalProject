@@ -5,6 +5,7 @@ body {
     color: white !important;
 }
 
+
 #title-div {
     width: 100%;
     text-align: center;
@@ -15,7 +16,7 @@ body {
 #game-div {
     display: inline-block;
     width: 60%;
-    height: 500px;
+    height: 487px;
 }
 
 #game-div iframe {
