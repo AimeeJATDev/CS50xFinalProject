@@ -16,7 +16,6 @@ body {
     height: 80vh;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
 }
 
 #title-div {
@@ -46,6 +45,19 @@ body {
     width: 30%;
     height: 490px;
     margin-left: 100px;
-    overflow-y: scroll;
-    border: 1px solid red;
+    border: 2px solid #BBE1FA;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#table-div {
+    width: 100%;
+    height: 490px;
+    overflow-y: auto;
+    border-radius: 15px;
+}
+
+#highscore-div table thead th {
+    position: sticky;
+    top: 0;
 }

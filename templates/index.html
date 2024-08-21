@@ -19,24 +19,26 @@
                     <iframe src="../static/game/build/web/index.html" scrolling="no"></iframe>
                 </div>
                 <div id="highscore-div">
-                    <table class="table table-dark table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-    
-                        {% for score in highscores %}
-                            <tbody>
+                    <div id="table-div">
+                        <table class="table table-dark table-striped table-bordered">
+                            <thead>
                                 <tr>
-                                    <td>{{ score.0 }}</td>
-                                    <td>{{ score.1 }}</td>
+                                    <th>Name</th>
+                                    <th>Score</th>
                                 </tr>
-                            </tbody>
-                        {% endfor %}
-    
-                    </table>
+                            </thead>
+        
+                            {% for score in highscores %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{ score.0 }}</td>
+                                        <td>{{ score.1 }}</td>
+                                    </tr>
+                                </tbody>
+                            {% endfor %}
+        
+                        </table>
+                    </div>
                 </div>
             </div>  
         </main>
