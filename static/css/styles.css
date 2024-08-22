@@ -1,5 +1,11 @@
 /* Game Colour Palette: https://colorhunt.co/palette/1b262c0f4c753282b8bbe1fa */
 
+/* PC-Senior Font: https://www.1001fonts.com/pc-senior-font.html + http://www.zone38.net/font/#pcsenior */
+@font-face {
+    font-family: "pc-senior";
+    src: url("../fonts/pc-senior/pcsenior.ttf") format('truetype');
+}
+
 html {
     width: 100%;
     height: 100%;
@@ -13,7 +19,7 @@ body {
 #content {
     display: flex;
     width: 100%;
-    height: 80vh;
+    height: 75vh;
     justify-content: center;
     align-items: center;
 }
@@ -21,8 +27,11 @@ body {
 #title-div {
     width: 100%;
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-top: 80px;
+}
+
+#title-div h1 {
+    font-family: "pc-senior";
 }
 
 #game-div {
