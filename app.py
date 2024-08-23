@@ -8,5 +8,5 @@ db = sqlite3.connect("static/game/highscores.db", check_same_thread=False)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    highscores = db.execute("SELECT name, score FROM scores ORDER BY score DESC;")
+    highscores = db.execute("SELECT RANK() OVER (ORDER BY score DESC) Rank, name, score FROM scores ORDER BY score DESC;")
     return render_template("index.html", highscores=highscores)
