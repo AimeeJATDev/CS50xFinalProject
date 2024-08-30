@@ -6,7 +6,6 @@ import pygame
 import asyncio
 import random
 import sqlite3
-#import sqlitecloud
 
 #PyGame Initialisation
 pygame.init()
@@ -14,13 +13,9 @@ pygame.font.init()
 
 # Connect to db
 baseDir = os.path.dirname(os.path.abspath(__file__))
-dbPath = os.path.join(baseDir, "highscores.db")
+dbPath = os.path.join(baseDir, "db/highscores.db")
 db = sqlite3.connect(dbPath)
-#cursor = db.cursor()
-
 print(dbPath)
-
-#db = sqlite3.connect("sqlitecloud://cjt2v0bqsz.sqlite.cloud:8860/highscores.db?apikey=ScasSsHOWlJMG3JjOK0od5XAf2Bx4RbPvRuvZG8abDg?")
 
 # Global Variable Declaration
 SCREEN_WIDTH = 1700
@@ -135,10 +130,12 @@ async def main():
                 if submitted == False:
                     if event.key == pygame.K_RETURN:
                         submitted = True
-                        #db.execute("USE DATABASE highscores.db")
                         db.execute("INSERT INTO scores (name, score) VALUES (?,?);", (username, score))
                         db.commit()
 
+                        with open("toInsert.txt", "w") as file:
+                            file.write(username)
+                            file.flush()
 
                     elif event.key == pygame.K_BACKSPACE:
                         username = username[:-1]
