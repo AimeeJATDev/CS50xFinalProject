@@ -2,6 +2,7 @@
 # Import Libraries
 import os
 import sys
+import platform
 import pygame
 import asyncio
 import random
@@ -12,10 +13,10 @@ pygame.init()
 pygame.font.init()
 
 # Connect to db
-baseDir = os.path.dirname(os.path.abspath(__file__))
-dbPath = os.path.join(baseDir, "./highscores.db")
-db = sqlite3.connect(dbPath)
-cursor = db.cursor()
+#baseDir = os.path.dirname(os.path.abspath(__file__))
+#dbPath = os.path.join(baseDir, "highscores.db")
+#db = sqlite3.connect(dbPath)
+#print(dbPath)
 
 # Global Variable Declaration
 SCREEN_WIDTH = 1700
@@ -130,8 +131,15 @@ async def main():
                 if submitted == False:
                     if event.key == pygame.K_RETURN:
                         submitted = True
-                        cursor.execute("INSERT INTO scores (name, score) VALUES (?,?);", (username, score))
-                        db.commit()
+                        #db.execute("INSERT INTO scores (name, score) VALUES (?,?);", (username, score))
+                        #db.commit()
+
+                        with open("toInsert.txt", "w") as file:
+                            file.write(username + "-")
+                            file.write(repr(score))
+                        if sys.platform == "emscripten":
+                            platform.window.MM.download("toInsert.txt")
+
                     elif event.key == pygame.K_BACKSPACE:
                         username = username[:-1]
                     else:
