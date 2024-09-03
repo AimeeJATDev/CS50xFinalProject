@@ -6,7 +6,7 @@ Channel Islands, Guernsey
 #### Video Demo:
 https://youtu.be/azQVlJNg-yQ 
 #### Description:
-For my final project I created a website that includes a whack a mole inpired game and a highscore table. The website was built used HTML and CSS for the frontend and Flask for the backend. The game was made using Python and the highscore table was created using SQLite3. I decided on this project because I wanted to showcase as many skills as possible that I picked up during the CS50x course. 
+For my final project I created a website that includes a whack a mole inspired game and a highscore table. The website was built using HTML and CSS for the frontend and Flask for the backend. The game was made using Python and the highscore table was created using SQLite3. I decided on this project because I wanted to showcase the skills that I picked up during the CS50x course. 
 
 ##### The Game:
 For the game I used: 
@@ -20,7 +20,7 @@ I approached the game first when I started programming as it was the part of the
 For the database I used:
 * SQlite3: https://www.sqlite.org/
 
-In the sqlite database I created a table called scores, which had id, name and score columns. 
+In the sqlite database I created a table called scores, which had id, name and score columns. I created three queries for the project.
 
 ##### The Website:
 For the website I used:
