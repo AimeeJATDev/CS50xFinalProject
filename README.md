@@ -14,7 +14,7 @@ For the game I used:
   * Pygame: https://www.pygame.org/docs/
   * Pygbag: https://pypi.org/project/pygbag/0.3.2/
 
-I approached the game first when I started programming as it was the part of the project that was going to be the most complex. After some research I found that I could use the Pygame library to create the game, and the functions within this module were very handy when creating the grid area for the game.
+I approached the game first when I started programming as it was the part of the project that was going to be the most complex. After researching games made in Python I found the Pygame module would be a good option to use. [Pygame](https://github.com/pygame/pygame) is a free and open source library for the development of multimedia applications, such as video games. 
 
 ##### The Database
 For the database I used:
