@@ -18,6 +18,7 @@ For the game I used:
 I approached the game first when I started programming as it was the part of the project that was going to be the most complex. After researching games made in Python I found the Pygame module would be a good option to use. [Pygame](https://github.com/pygame/pygame) is a free and open source library for the development of multimedia applications, such as video games. Pygame includes tools for 2D graphics, support for different types of input and collision detection, all of which I used in different parts of my game. I then realised embedding the python game was going to be a challenge as Python needs an interpreter to run. There was also an added challenge of using Pygame as some tools that would allow you to embed Python into a website didn't support Pygame. I then found [Pygbag](https://pygame-web.github.io/wiki/pygbag/) which is a module which allows you to package Pygame code and run it on the web. 
 
 ### Creating the Grid
+I started off the project by creating a 3x3 grid and I found that if I used the Pygame [Rect](https://www.pygame.org/docs/ref/rect.html) object to create 9 smaller squares, I could find the specific x/y coordinates to create a grid. To achieve this I used two For loops so that I wasn't repeating code and I also used used the Pygame [Draw](https://www.pygame.org/docs/ref/draw.html) module to draw the grid to the screen. 
 
 ### Creating Sprites
 
@@ -26,6 +27,8 @@ I approached the game first when I started programming as it was the part of the
 ### Programming the Game Logic
 
 ### Programming User Input
+
+### Finishing Touches
 
 ## The Database
 For the database I used:
