@@ -18,13 +18,16 @@ For the game I used:
 I approached the game first when I started programming as it was the part of the project that was going to be the most complex. After researching games made in Python I found the Pygame module would be a good option to use. [Pygame](https://github.com/pygame/pygame) is a free and open source library for the development of multimedia applications, such as video games. Pygame includes tools for 2D graphics, support for different types of input and collision detection, all of which I used in different parts of my game. I then realised embedding the python game was going to be a challenge as Python needs an interpreter to run. There was also an added challenge of using Pygame as some tools that would allow you to embed Python into a website didn't support Pygame. I then found [Pygbag](https://pygame-web.github.io/wiki/pygbag/) which is a module which allows you to package Pygame code and run it on the web. 
 
 ### Creating the Grid
-I started off the project by creating a 3x3 grid and I found that if I used the Pygame [Rect](https://www.pygame.org/docs/ref/rect.html) object to create 9 smaller squares, I could find the specific x/y coordinates to create a grid. To achieve this I used two For loops so that I wasn't repeating code and I also used used the Pygame [Draw](https://www.pygame.org/docs/ref/draw.html) module to draw the grid to the screen. 
+I started off the project by creating a 3x3 grid and I found that if I used the Pygame [Rect](https://www.pygame.org/docs/ref/rect.html) object to create 9 smaller squares (or grid cells), I could find the specific x/y coordinates to create a grid. To achieve this I used two For loops so that I wasn't repeating code and I used the Pygame [Draw](https://www.pygame.org/docs/ref/draw.html) module to draw the grid to the screen. Within that For loop I also used the Draw module to add a circle to the center of each of the grid cells and I then added the x/y coordinates of each of these circles into a list so I could use them later. The circles are where the Duck and Fish sprites will appear in during the game.
 
 ### Creating Sprites
+I used the Pygame [Sprites](https://www.pygame.org/docs/ref/sprite.html) module to create a Class that I could use for all of the sprites in the game. The Class I created was called gameSprites and within this class I had two properties, img and clicked. img was the path to the image I created for the sprite and clicked was only used for the Duck and Fish sprites to track whether or not they had been clicked. 
 
 ### Creating the Different Screens
+In the game I had 5 different screens: title screen, instruction screen, game screen, endgame screen and score input. For the title screen I created three buttons: one to start the game, one to end the game and one to exit. I positioned all of the buttons in the center of the screen and I also spread them vertically across the screen. Then for the background of the title screen I picked out a colour from the [colour scheme](https://colorhunt.co/palette/1b262c0f4c753282b8bbe1fa) I found. For the instructions screen I kept the same background and added an image explaining all of the instructions and a button linking back to the title screen. The game screen was the most complex as I had to design around the grid I had already created earlier. I added a background to the grid and to the circles in the cells of the grid too. I also created a background to set the timer and score labels on and I made the screen background a lighter colour to differenciate the main game from the other 4 screens. The endgame screen had a background image and on top of that I added labels to say what score the user got. The score input screen used the same background image as the previous screen and it just had an input field to add the username and a label telling the user what to do. When the user then presses enter the screen changes and a label is in the center of the screen telling the user the username has been submitted.
 
 ### Programming the Game Logic
+I started off by creating the timer and score labels. For the timer I used the Pygame [Time](https://www.pygame.org/docs/ref/time.html) module and that allowed me to set a timer for 30 seconds and then I used a timer event to decrease the time as the game was running. The timer also had a label so the user could see it and for that I used the Pygame [Font](https://www.pygame.org/docs/ref/font.html) module to load a specific font I had found online that I thought would work well for the project. The timer event would then change the time on the font as the timer was running out. 
 
 ### Programming User Input
 
@@ -34,6 +37,7 @@ I started off the project by creating a 3x3 grid and I found that if I used the 
 For the database I used:
 * SQlite3: https://www.sqlite.org/
 
+### Introduction
 In the sqlite database I created a table called scores, which had id, name and score columns. I created three queries for the project.
 
 ## The Website:
