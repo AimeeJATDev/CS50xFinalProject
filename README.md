@@ -43,6 +43,8 @@ CREATE TABLE scores(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT
 INSERT INTO scores (name, score) VALUES (?,?);
 SELECT RANK() OVER (ORDER BY score DESC) Rank, name, score FROM scores ORDER BY score DESC;
 ```
+### Difficulities Writing to Database
+To start with the code to write to the database was located within the game code and if run in Python it worked perfectly, but I found that when the game was run via the Pygbag packager, I couldn't see the updates and from the outside it looked like nothing was getting commit to the database file. After a lot of research and experimentation I finally found that the game was writing to a copy of the database file in the Python REPL within the packager instead of the file I had locally with the rest of my project. I did find a workaround to this, but it definitely isn't the tidiest. The workaround was to get the Python game code to write the data I needed to a text file, then to download that text file from the Python REPL to the local downloads drive on my computer. From there I used my Flask code to get the file, read it and get the data from it before deleting the file from the local downloads drive. I then could update the database from the Flask code and then refresh the page on the website to see the changes to the database in the table. 
 
 ## The Website:
 For the website I used:
@@ -50,11 +52,11 @@ For the website I used:
 * HTML: https://developer.mozilla.org/en-US/docs/Web/HTML
 * CSS: https://developer.mozilla.org/en-US/docs/Web/CSS
 
-### Introduction
-For the website, I just created a simple outline with HTML to begin with and then I added the CSS styling on top of that.
+### Overview
+For the website I used Flask for the backend and HTML and CSS for the frontend. Within the Flask code is a route for the homepage of the website, which in this case is the only page as well. In that route is an index function which is run when the page is loaded/reloaded. 
 
 ### Flask
-I used Flask for the backend of the website 
+I used Flask for the backend of the website and 
 
 ### HTML
 
