@@ -36,7 +36,7 @@ The game is run using a Pygame event within a While loop. The While loop runs co
 For the database I used:
 * SQlite3: https://www.sqlite.org/
 
-### Introduction
+### Overview
 In the sqlite database I created a table called scores, which had id, name and score columns. The table is going to hold all of the scores from the players of the game and it then can be displayed on the website to show who has the high score. I only really needed three queries for this project: one to create the table, one to insert into the table and one to select the table data to display in the website.
 ```
 CREATE TABLE scores(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, score INTEGER NOT NULL);
@@ -54,7 +54,9 @@ For the website I used:
 For the website, I just created a simple outline with HTML to begin with and then I added the CSS styling on top of that.
 
 ### Flask
+I used Flask for the backend of the website 
 
 ### HTML
 
 ### CSS
+For the styling I kept it pretty simple and kept the same colour scheme as I used in the game. I made the background dark and positioned the game and highscore table in the center of the page with a light blue border to differenciate it from the background. I then found a font that I liked for the heading and once that was added the styling was done.
