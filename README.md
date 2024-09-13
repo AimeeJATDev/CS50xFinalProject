@@ -53,12 +53,4 @@ For the website I used:
 * CSS: https://developer.mozilla.org/en-US/docs/Web/CSS
 
 ### Overview
-For the website I used Flask for the backend and HTML and CSS for the frontend. Within the Flask code is a route for the homepage of the website, which in this case is the only page as well. In that route is an index function which is run when the page is loaded/reloaded. 
-
-### Flask
-I used Flask for the backend of the website and 
-
-### HTML
-
-### CSS
-For the styling I kept it pretty simple and kept the same colour scheme as I used in the game. I made the background dark and positioned the game and highscore table in the center of the page with a light blue border to differenciate it from the background. I then found a font that I liked for the heading and once that was added the styling was done.
+For the website I used Flask for the backend and HTML and CSS for the frontend. Within the Flask code is a route for the homepage of the website, which in this case is the only page. In that route is an index function which is run when the page is loaded/reloaded. Within the index function includes code to open and read a text file from the users downloads folder (if the file exists) and then insert the data in the database table. From there the changes are commit to the database and the text file is removed from the downloads folder. The Flask file also includes a database query to get the score rankings from the table which is then passed as an argument into the render_template function which renders the homepage template. The design of the website I kept pretty simple as I wanted the main focus to be on the game. I used the same colour scheme as the game and I made the background the darkest colour and then I used white for the main heading and gave the game and table a light blue border to differenciate it from the background. All of the content was centered in the page and the game was added in via the iframe and the table was populated using [Jinja](https://jinja.palletsprojects.com/en/3.1.x/).
