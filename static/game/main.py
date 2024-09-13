@@ -1,5 +1,5 @@
 # Game Colour Palette: https://colorhunt.co/palette/1b262c0f4c753282b8bbe1fa
-# Import Libraries
+# Import Modules
 import os
 import sys
 import platform
@@ -11,12 +11,6 @@ import sqlite3
 #PyGame Initialisation
 pygame.init()
 pygame.font.init()
-
-# Connect to db
-#baseDir = os.path.dirname(os.path.abspath(__file__))
-#dbPath = os.path.join(baseDir, "highscores.db")
-#db = sqlite3.connect(dbPath)
-#print(dbPath)
 
 # Global Variable Declaration
 SCREEN_WIDTH = 1700
@@ -131,8 +125,6 @@ async def main():
                 if submitted == False:
                     if event.key == pygame.K_RETURN:
                         submitted = True
-                        #db.execute("INSERT INTO scores (name, score) VALUES (?,?);", (username, score))
-                        #db.commit()
 
                         with open("toInsert.txt", "w") as file:
                             file.write(username + "-")
@@ -174,8 +166,6 @@ async def main():
         clock.tick(30)
 
         await asyncio.sleep(0)
-
-    #pygame.quit()
 
 
 def titleScreen():
@@ -265,8 +255,6 @@ def drawGrid():
 
     # Changes gameState variable to "game"
     gameState = "game"
-
-    pygame.display.update()
 
 
 def gameLogic():
