@@ -1,0 +1,14 @@
+[project]
+name = "CS50xFinalProject"
+version = "1.0.0"
+description = "My final project for the CS50x course. The project includes a simple website which includes a whack-a-mole inspired game and a highscore table"
+dependencies = [
+    "flask", 
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/CS50xFinalProject"]
