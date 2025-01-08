@@ -3,7 +3,6 @@ import os
 import sqlite3
 from pathlib import Path
 from flask import Flask, redirect, render_template
-from waitress import serve
 
 # Initialise Flask and connect to database
 app = Flask(__name__, static_folder="static")
@@ -36,6 +35,3 @@ def index():
     highscores = db.execute("SELECT RANK() OVER (ORDER BY score DESC) Rank, name, score FROM scores ORDER BY score DESC;")
     # Render index.html template and pass in highscores variable
     return render_template("index.html", highscores=highscores)
-
-if __name__ == "__main__":
-    serve(app)
